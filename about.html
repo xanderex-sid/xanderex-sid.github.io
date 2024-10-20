@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siddharth Mishra | About</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico">
+
+    <style>
+        body {
+            font-family: 'Nunito Sans', Arial, sans-serif; /* Use Nunito for body text */
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 10px;
+            /* padding: 20px; */
+        }
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600; /* Slightly bold */
+            padding: 40px 0 0 0;
+            text-align: left;
+            color: #383838;
+        }
+        .navbar {
+            width: 100%;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            overflow: hidden;
+            text-align: center; /* Center align text */
+            font-size: 14px; /* Decrease font size for navbar on mobile */
+
+        }
+        .navbar a {
+            display: inline-block;
+            color: black;
+            text-align: center;
+            padding: 10px 15px; /* Adjusted padding for better touch target */
+            text-decoration: none;
+            position: relative; /* Ensure relative positioning for pseudo-element */
+        }
+        .navbar a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background-color: #20c997;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 0.3s ease; /* Smooth transition for width */
+        }
+        .navbar a:hover::after {
+            width: 100%; /* Expand width on hover */
+        }
+        .about-section {
+            display: flex;
+            flex-wrap: wrap; /* Allow columns to wrap */
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .column {
+            width: 100%; /* Full width on smaller screens */
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        .experiences {
+            margin-top: 20px;
+        }
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400; /* Slightly bold */
+            position: relative;
+            margin-bottom: 10px;
+        }
+        h2::after {
+            content: '';
+            display: block;
+            width: 100%;
+            margin-top: 5px;
+            border-bottom: 1px solid #ccc;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+        }
+
+        .experience-item {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .experience-item strong {
+            display: block;
+            font-weight: 600; /* Bold for job title */
+        }
+
+        @media (min-width: 600px) {
+            .column {
+                width: 48%; /* Two columns on larger screens */
+                margin-bottom: 0;
+            }
+            .navbar {
+                font-size: 18px; /* Decrease font size for navbar on mobile */
+
+            }
+            .experience-date {
+                position: absolute;
+                font-weight: 400; /* Regular weight for date */
+                right: 0;
+                top: 0;
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="#">About</a>
+        <a href="blog.html">Blog</a>
+        <a href="https://drive.google.com/drive/folders/1VZqvcikl8Run2dg1sEm4Vpf0BI_LRSZc" target="_blank">Resume</a>
+    </div>
+
+    <h1>About Me</h1>
+    
+    <div class="about-section">
+        <div class="column">
+            <h2>Hello,</h2>
+            <p>I'm Siddharth, currently, a Data Scientist at DeepMatrix Private Limited. I work on geospatial computer vision tasks in machine learning, specially deep learning models. I am passionate about making AI models faster and more energy-efficient, and I am learning how to create amazing autonomous systems.</p>
+            <p>Besides this, I love music and video games, and I enjoy exploring topics like current events, startups, businesses, AI products, stories, history, and literature.</p>
+        </div>
+        <div class="column">
+            <h2>Education</h2>
+            <p>
+                <strong>B.Tech in Electrical Engineering</strong><br>
+                Indian Institute of Technology, Dhanbad <br>
+                2021 - 25 <strong>(CGPA - 8.50/10)</strong>
+            </p>
+<!--            <p>-->
+<!--                <strong>Highschool</strong><br>-->
+<!--                KV Cantt, Kanpur <br> -->
+<!--            </p>-->
+        </div>
+    </div>
+    
+    <div class="experiences">
+        <h2>Experiences</h2>
+        <div class="experience-item">
+            <strong>Data Scientist, DeepMatrix, Bangalore</strong>
+            <span class="experience-date">Oct, 2024 - Present</span>
+            <div>Working on geospatial computer vision tasks.</div>
+        </div>
+        <div class="experience-item">
+            <strong>AI/ML Intern, DeepMatrix, Bangalore</strong>
+            <span class="experience-date">May, 2024 - July, 2024</span>
+            <div>Created segmentation model of orthomosaic data, Chatbot for GIS toolbox, object-detection model for GCP detection.</div>
+        </div>
+        <div class="experience-item">
+            <strong>Research Intern (Humanities Department), IIT Dhanbad</strong>
+            <span class="experience-date">Oct, 2023 - Jan, 2024</span>
+            <div>Implemented machine learning algorithms and performed data analysis for suicidal ideation prediction in B.Tech students.</div>
+        </div>
+        <div class="experience-item">
+            <strong>Research Intern (Computer Science Department), IIT Dhanbad</strong>
+            <span class="experience-date">Aug, 2023 - Nov, 2024</span>
+            <div>Classification on the HRRS image dataset with a focus on privacy preservation.</div>
+        </div>
+    </div>
+
+</body>
+</html>
