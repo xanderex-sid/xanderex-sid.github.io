@@ -40,7 +40,24 @@
       border-bottom:1px solid #e6e6e6;
       margin-bottom:18px;
     }
-    .navbar a{color:#111;text-decoration:none;font-weight:600}
+    .navbar a {
+      position: relative;
+    }
+    .navbar a::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background-color: #20c997;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+    }
+    .navbar a:hover::after {
+      width: 100%;
+    }
 
     /* HEADER */
     header.experiment-head{padding:12px 0 18px 0}
