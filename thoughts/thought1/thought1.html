@@ -32,15 +32,38 @@
     }
 
     /* NAVBAR */
-    .navbar{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      padding:10px 0;
-      border-bottom:1px solid #e6e6e6;
-      margin-bottom:18px;
+    .navbar {
+        width: 100%;
+        background-color: #fff;
+        border-bottom: 1px solid #ddd;
+        overflow: hidden;
+        text-align: center; /* Center align text */
+        font-size: 14px; /* Decrease font size for navbar on mobile */
+
     }
-    .navbar a{color:#111;text-decoration:none;font-weight:600}
+    .navbar a {
+        display: inline-block;
+        color: black;
+        text-align: center;
+        padding: 10px 15px; /* Adjusted padding for better touch target */
+        text-decoration: none;
+        position: relative; /* Ensure relative positioning for pseudo-element */
+    }
+    .navbar a::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2px;
+        background-color: #20c997;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: width 0.3s ease; /* Smooth transition for width */
+    }
+    .navbar a:hover::after {
+        width: 100%; /* Expand width on hover */
+    }
 
     /* HEADER */
     header.experiment-head{padding:12px 0 18px 0}
@@ -118,10 +141,10 @@
 
   <nav class="navbar">
     <a href="/">Home</a>
-    <a href="/experiments">Experiments</a>
-    <a href="/">Blog</a>
-    <a href="/resume" target="_blank">Resume</a>
-    <div style="margin-left:auto;color:var(--muted);font-size:13px">exp template</div>
+    <a href="experiments.html">Experiments</a>
+    <a href="thoughts.html">Thoughts</a>
+    <a href="https://drive.google.com/drive/folders/1ATfkDZ_2_wGB6TsgqVIYR1YFucV3yJG7?usp=sharing" target="_blank">Resume</a>
+    <!-- <div style="margin-left:auto;color:var(--muted);font-size:13px">exp template</div> -->
   </nav>
 
   <header class="experiment-head">
