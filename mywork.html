@@ -4,72 +4,74 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>siddharth mishra | my-personal-work</title>
-    <!-- fonts kept as original (code casing unchanged) -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.ico">
 
     <style>
-        /* --- color / base --- */
+        /* restored original sizing & spacing where necessary */
         :root {
             --bg: #f5eedc;
             --text: #383838;
             --muted: #6b6b6b;
             --accent: #0c0d0d;
-            --maxw: 1100px;
+            --maxw: 900px; /* restored original max width */
         }
+
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
         }
+
         body {
-            font-family: 'Nunito Sans', Arial, sans-serif;
+            font-family: 'Nunito Sans', Arial, sans-serif; /* Use Nunito for body text */
             font-size: 18px;
             line-height: 1.6;
-            color: var(--text);
-            background-color: var(--bg);
             max-width: var(--maxw);
             margin: 0 auto;
-            padding: 18px;
+            padding: 10px; /* restored original */
+            background-color: var(--bg);
             box-sizing: border-box;
         }
 
-        /* --- header: match original look --- */
+        /* header: match original exactly */
         h1 {
             font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            padding: 40px 0 0 0; /* restored original padding */
+            font-weight: 600; /* Slightly bold */
+            padding: 40px 0 0 0;
             margin: 0 0 12px 0;
             text-align: left;
             color: var(--text);
-            /* visible text lowercase (only appearance) */
-            text-transform: lowercase;
+            text-transform: lowercase; /* only visible text forced lowercase */
         }
 
-        /* --- navbar: size restored to original behavior --- */
+        /* navbar: restored original spacing so vertical position matches */
         .navbar {
             width: 100%;
-            background-color: #f5eedc;
+            background-color: var(--bg);
             border-bottom: 1px solid #ddd;
             overflow: hidden;
             text-align: center; /* Center align text */
             font-size: 14px; /* Decrease font size for navbar on mobile */
+            /* no extra top/bottom padding — keeps it at same vertical position as original */
+            padding: 0;
         }
         .navbar a {
             display: inline-block;
             color: black;
             text-align: center;
-            padding: 10px 15px; /* Adjusted padding for better touch target */
+            padding: 10px 15px; /* restored original anchor padding */
             text-decoration: none;
             position: relative; /* Ensure relative positioning for pseudo-element */
+            text-transform: lowercase; /* visible text lowercase only */
         }
         .navbar a::after {
             content: '';
             display: block;
             width: 0;
             height: 2px;
-            background-color: #0c0d0d;
+            background-color: var(--accent);
             position: absolute;
             bottom: 0;
             left: 50%;
@@ -80,11 +82,7 @@
             width: 100%; /* Expand width on hover */
         }
 
-        @media (min-width: 600px) {
-            .navbar { font-size: 18px; } /* restored original breakpoint */
-        }
-
-        /* --- three column layout (responsive) --- */
+        /* three column layout */
         .three-cols {
             display: grid;
             grid-template-columns: 1fr;
@@ -101,15 +99,26 @@
             border-radius: 8px;
             padding: 8px 12px 20px 12px;
         }
+
+        /* keep h2 style visually consistent with your original h2 */
         .col h2 {
             font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            margin: 6px 0 8px 0;
-            padding: 0;
+            font-weight: 400;
+            position: relative;
+            margin-bottom: 10px;
             font-size: 20px;
             color: var(--text);
-            /* visible text lowercase */
-            text-transform: lowercase;
+            text-transform: lowercase; /* visible text only */
+        }
+        .col h2::after {
+            content: '';
+            display: block;
+            width: 100%;
+            margin-top: 5px;
+            border-bottom: 1px solid #ccc;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
         }
 
         .empty {
@@ -120,7 +129,7 @@
             text-transform: lowercase;
         }
 
-        /* --- table-of-contents style --- */
+        /* table-of-contents style */
         .toc { list-style: none; margin: 0; padding: 0; }
         .toc-item {
             display: flex;
@@ -158,7 +167,6 @@
             width: 100%;
             font-size: 16px;
             cursor: pointer; /* whole heading clickable */
-            /* visible text lowercase */
             text-transform: lowercase;
         }
         .toc-heading .meta {
@@ -179,7 +187,7 @@
             font-size: 15px;
             line-height: 1.5;
             color: var(--text);
-            text-transform: lowercase; /* visible description lowercase */
+            text-transform: lowercase;
         }
         .desc p { margin: 0 0 6px 0; }
         .desc a.project-link {
@@ -193,13 +201,18 @@
         }
         .desc a.project-link::before { content: "-> "; color: var(--accent); }
 
+        /* keep original responsive behavior for navbar size and blog-date placement */
+        @media (min-width: 600px) {
+            .navbar { font-size: 18px; } /* Increase font size for navbar on larger screens */
+        }
+
         /* small-screen adjustments */
         @media (max-width: 599px) {
-            body { padding: 12px; font-size: 16px; }
+            body { padding: 10px; font-size: 16px; }
             h1 { font-size: 26px; }
         }
 
-        /* keyboard focus */
+        /* focus styles */
         .toggle-btn:focus, .toc-heading:focus {
             outline: 3px solid rgba(12,13,13,0.12);
             outline-offset: 2px;
@@ -332,7 +345,6 @@
     <script>
         // toggle logic: arrow button OR entire heading toggles the description
         document.addEventListener('DOMContentLoaded', function () {
-            // helper to toggle a panel
             function togglePanel(btn, panel) {
                 const expanded = btn.getAttribute('aria-expanded') === 'true';
                 btn.setAttribute('aria-expanded', String(!expanded));
@@ -341,7 +353,6 @@
                 btn.textContent = expanded ? '▶' : '▾';
             }
 
-            // wire buttons
             const buttons = Array.from(document.querySelectorAll('.toggle-btn'));
             buttons.forEach(btn => {
                 const panelId = btn.getAttribute('aria-controls');
@@ -354,7 +365,6 @@
                 });
             });
 
-            // wire headings (so clicking the full heading toggles)
             const headings = Array.from(document.querySelectorAll('.toc-heading'));
             headings.forEach(h => {
                 const panelId = h.getAttribute('data-controls');
@@ -363,10 +373,7 @@
                               .find(b => b.getAttribute('aria-controls') === panelId);
                 if (!panel || !btn) return;
 
-                // click handler for heading
                 h.addEventListener('click', function () { togglePanel(btn, panel); });
-
-                // keyboard activation (enter/space)
                 h.addEventListener('keydown', function (e) {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
