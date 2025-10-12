@@ -163,22 +163,23 @@
         .toggle-btn[aria-expanded="true"] { transform: rotate(90deg); }
 
         .toc-heading {
-            flex: 1;
-            font-weight: 600;
-            color: var(--text);
-            display: block;
-            width: 100%;
-            font-size: 16px;
-            cursor: pointer; /* whole heading clickable */
-            text-transform: lowercase;
+          display: flex;
+          justify-content: space-between; /* places heading on left, date on right */
+          align-items: center;
+          font-weight: 600;
+          color: var(--text);
+          width: 100%;
+          font-size: 16px;
+          cursor: pointer;
+          text-transform: lowercase;
         }
+        
         .toc-heading .meta {
-            display: inline-block;
-            font-weight: 400;
-            color: var(--muted);
-            float: right;
-            font-size: 14px;
-            text-transform: lowercase;
+          font-weight: 400;
+          color: var(--muted);
+          font-size: 14px;
+          text-transform: lowercase;
+          flex-shrink: 0; /* keeps date from wrapping */
         }
 
         .desc {
@@ -236,17 +237,12 @@
             <h2 id="ai-heading">ai</h2>
             <ul class="toc" id="ai-list">
                 <li class="toc-item">
-                    <button class="toggle-btn" aria-expanded="false" aria-controls="desc-mini-gpt" title="expand">▶</button>
-                    <div class="toc-heading" tabindex="0" data-controls="desc-mini-gpt">mini-gpt from scratch <span class="meta">dec, 2023</span></div>
+                    <button class="toggle-btn" aria-expanded="false" aria-controls="desc-tokenizers" title="expand">▶</button>
+                    <div class="toc-heading" tabindex="0" data-controls="desc-tokenizers">tokenizers<span class="meta">dec, 2024</span></div>
                 </li>
-                <div class="desc" id="desc-mini-gpt">
-                    <p>i implemented decoder part of transformer (text generation) in a compact notebook. used the original transformer ideas (decoder-only) to train and sample text.</p>
-                    <a class="project-link" href="https://github.com/xanderex-sid/Transformer-Models/blob/main/miniGPT.ipynb" target="_blank" rel="noopener">project-link</a>
-                </div>
-
-                <li class="toc-item">
+                                <li class="toc-item">
                     <button class="toggle-btn" aria-expanded="false" aria-controls="desc-fsrcnn" title="expand">▶</button>
-                    <div class="toc-heading" tabindex="0" data-controls="desc-fsrcnn">implementing fast-high-resolution-convolution-neural-network from scratch <span class="meta">dec, 2024</span></div>
+                    <div class="toc-heading" tabindex="0" data-controls="desc-fsrcnn">fsrcnn from scratch <span class="meta">dec, 2024</span></div>
                 </li>
                 <div class="desc" id="desc-fsrcnn">
                     <p>implemented the research paper "accelerating the super-resolution convolutional neural network" from scratch in pytorch.</p>
@@ -255,11 +251,23 @@
 
                 <li class="toc-item">
                     <button class="toggle-btn" aria-expanded="false" aria-controls="desc-pong-rl" title="expand">▶</button>
-                    <div class="toc-heading" tabindex="0" data-controls="desc-pong-rl">reinforcement-learning-with-atari-pong-game <span class="meta">sep, 2024</span></div>
+                    <div class="toc-heading" tabindex="0" data-controls="">rl-with-atari-pong-game <span class="meta">sep, 2024</span></div>
                 </li>
                 <div class="desc" id="desc-pong-rl">
-                    <p>trained an atari pong agent (pytorch) inspired by karpathy's code. compatible with gpu and experiments for cnn / mlp models.</p>
+                    <p>trained an atari pong agent (pytorch) inspired by karpathy's code using reinforcement learning. compatible with gpu and experiments for cnn / mlp models.</p>
                     <a class="project-link" href="https://github.com/xanderex-sid/reinforcement_learning/tree/main/pong_rl" target="_blank" rel="noopener">project-link</a>
+                </div>
+                <div class="desc" id="desc-tokenizers">
+                    <p>learning and experimenting with tokenizers for llms (references: andrej karpathy and open resources).</p>
+                    <a class="project-link" href="https://github.com/xanderex-sid/LangModel-Tokenizers" target="_blank" rel="noopener">project-link</a>
+                </div>
+                <li class="toc-item">
+                    <button class="toggle-btn" aria-expanded="false" aria-controls="desc-mini-gpt" title="expand">▶</button>
+                    <div class="toc-heading" tabindex="0" data-controls="desc-mini-gpt">mini-gpt from scratch <span class="meta">dec, 2023</span></div>
+                </li>
+                <div class="desc" id="desc-mini-gpt">
+                    <p>i implemented decoder part of transformer (text generation) in a compact notebook. used the original transformer ideas (decoder-only) to train and sample text.</p>
+                    <a class="project-link" href="https://github.com/xanderex-sid/Transformer-Models/blob/main/miniGPT.ipynb" target="_blank" rel="noopener">project-link</a>
                 </div>
 
                 <li class="toc-item">
@@ -278,20 +286,11 @@
             <h2 id="ai-soft-heading">ai softwares & systems</h2>
             <ul class="toc" id="ai-soft-list">
                 <li class="toc-item">
-                    <button class="toggle-btn" aria-expanded="false" aria-controls="desc-tokenizers" title="expand">▶</button>
-                    <div class="toc-heading" tabindex="0" data-controls="desc-tokenizers">tokenizers for language models <span class="meta">dec, 2024</span></div>
-                </li>
-                <div class="desc" id="desc-tokenizers">
-                    <p>learning and experimenting with tokenizers for llms (references: andrej karpathy and open resources).</p>
-                    <a class="project-link" href="https://github.com/xanderex-sid/LangModel-Tokenizers" target="_blank" rel="noopener">project-link</a>
-                </div>
-
-                <li class="toc-item">
                     <button class="toggle-btn" aria-expanded="false" aria-controls="desc-rakumon" title="expand">▶</button>
-                    <div class="toc-heading" tabindex="0" data-controls="desc-rakumon">rakumon - a hyper-personalized e-commerce platform <span class="meta">sep, 2024</span></div>
+                    <div class="toc-heading" tabindex="0" data-controls="desc-rakumon">rakumon<span class="meta">sep, 2024</span></div>
                 </li>
                 <div class="desc" id="desc-rakumon">
-                    <p>built ai agent using gemini and mistral, vector db with pinecone and faiss, retrieval-augmented-generation, frontend/backend with fastapi, flask, html/css/js.</p>
+                    <p>a hyper-personalized e-commerce platform, built ai agent using gemini and mistral, vector db with pinecone and faiss, retrieval-augmented-generation, frontend/backend with fastapi, flask, html/css/js.</p>
                     <a class="project-link" href="https://github.com/xanderex-sid/Rakumon" target="_blank" rel="noopener">project-link</a>
                 </div>
 
@@ -341,9 +340,9 @@
         </div>
     </div>
 
-    <p style="color:var(--muted); margin-top:18px; font-size:14px; text-transform:lowercase;">
+    <!-- <p style="color:var(--muted); margin-top:18px; font-size:14px; text-transform:lowercase;">
         click the arrow or the heading to reveal project description and project-link.
-    </p>
+    </p> -->
 
     <script>
         // toggle logic: arrow button OR entire heading toggles the description
