@@ -1,379 +1,381 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>siddharth mishra | my-personal-work</title>
-  <link href="https://fonts.googleapis.com/css2?family=montserrat:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=nunito+sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="icon" href="favicon.ico">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>siddharth mishra | my-personal-work</title>
+    <!-- fonts kept as original (code casing unchanged) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico">
 
-  <style>
-    /* base */
-    :root {
-      --bg: #f5eedc;
-      --text: #383838;
-      --muted: #6b6b6b;
-      --accent: #0c0d0d;
-      --maxw: 1100px;
-    }
-    html,body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: 'nunito sans', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      font-size: 18px;
-      line-height: 1.6;
-      color: var(--text);
-      background-color: var(--bg);
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 18px;
-      box-sizing: border-box;
-    }
+    <style>
+        /* --- color / base --- */
+        :root {
+            --bg: #f5eedc;
+            --text: #383838;
+            --muted: #6b6b6b;
+            --accent: #0c0d0d;
+            --maxw: 1100px;
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        body {
+            font-family: 'Nunito Sans', Arial, sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg);
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 18px;
+            box-sizing: border-box;
+        }
 
-    /* header */
-    h1 {
-      font-family: 'montserrat', sans-serif;
-      font-weight: 600;
-      margin: 40px 0 12px 0;
-      padding: 0;
-      text-align: left;
-      color: var(--text);
-      text-transform: lowercase;
-      letter-spacing: 0.2px;
-    }
+        /* --- header: match original look --- */
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            padding: 40px 0 0 0; /* restored original padding */
+            margin: 0 0 12px 0;
+            text-align: left;
+            color: var(--text);
+            /* visible text lowercase (only appearance) */
+            text-transform: lowercase;
+        }
 
-    /* navbar */
-    .navbar {
-      width: 100%;
-      background-color: var(--bg);
-      border-bottom: 1px solid #ddd;
-      overflow: hidden;
-      text-align: center;
-      font-size: 14px;
-      padding: 6px 0;
-    }
-    .navbar a {
-      display: inline-block;
-      color: black;
-      text-align: center;
-      padding: 8px 12px;
-      text-decoration: none;
-      position: relative;
-      text-transform: lowercase;
-    }
-    .navbar a::after {
-      content: '';
-      display: block;
-      width: 0;
-      height: 2px;
-      background-color: var(--accent);
-      position: absolute;
-      bottom: -2px;
-      left: 50%;
-      transform: translateX(-50%);
-      transition: width 0.25s ease;
-    }
-    .navbar a:hover::after { width: 100%; }
+        /* --- navbar: size restored to original behavior --- */
+        .navbar {
+            width: 100%;
+            background-color: var(--bg);
+            border-bottom: 1px solid #ddd;
+            overflow: hidden;
+            text-align: center;
+            font-size: 14px; /* original base */
+            padding: 6px 0;
+        }
+        .navbar a {
+            display: inline-block;
+            color: black;
+            text-align: center;
+            padding: 8px 12px;
+            text-decoration: none;
+            position: relative;
+            /* visible text lowercase */
+            text-transform: lowercase;
+        }
+        .navbar a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 0.25s ease;
+        }
+        .navbar a:hover::after { width: 100%; }
 
-    /* layout: 3 columns responsive */
-    .three-cols {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-      margin-top: 12px;
-      align-items: start;
-    }
-    @media (min-width: 900px) {
-      .three-cols {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
+        @media (min-width: 600px) {
+            .navbar { font-size: 18px; } /* restored original breakpoint */
+        }
 
-    /* section heading */
-    .col {
-      background: transparent;
-      border-radius: 8px;
-      padding: 8px 12px 20px 12px;
-    }
-    .col h2 {
-      font-family: 'montserrat', sans-serif;
-      font-weight: 600;
-      margin: 6px 0 8px 0;
-      padding: 0;
-      text-transform: lowercase;
-      font-size: 20px;
-      position: relative;
-      color: var(--text);
-    }
-    .col p.empty {
-      color: var(--muted);
-      font-size: 14px;
-      margin: 8px 0;
-      padding: 8px 0;
-    }
+        /* --- three column layout (responsive) --- */
+        .three-cols {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 12px;
+            align-items: start;
+        }
+        @media (min-width: 900px) {
+            .three-cols { grid-template-columns: repeat(3, 1fr); }
+        }
 
-    /* list (table-of-contents style) */
-    .toc {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
+        .col {
+            background: transparent;
+            border-radius: 8px;
+            padding: 8px 12px 20px 12px;
+        }
+        .col h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin: 6px 0 8px 0;
+            padding: 0;
+            font-size: 20px;
+            color: var(--text);
+            /* visible text lowercase */
+            text-transform: lowercase;
+        }
 
-    .toc-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 8px 6px;
-      border-bottom: 1px dashed #e0d6c6;
-      position: relative;
-      cursor: default;
-    }
+        .empty {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 8px 0;
+            padding: 8px 0;
+            text-transform: lowercase;
+        }
 
-    /* arrow button */
-    .toggle-btn {
-      width: 20px;
-      height: 20px;
-      min-width: 20px;
-      min-height: 20px;
-      border-radius: 4px;
-      border: 1px solid #cfcfcf;
-      background: white;
-      display: inline-grid;
-      place-items: center;
-      font-size: 12px;
-      line-height: 1;
-      color: var(--accent);
-      user-select: none;
-      cursor: pointer;
-      transition: transform 0.15s ease;
-    }
-    .toggle-btn[aria-expanded="true"] {
-      transform: rotate(90deg);
-    }
+        /* --- table-of-contents style --- */
+        .toc { list-style: none; margin: 0; padding: 0; }
+        .toc-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 6px;
+            border-bottom: 1px dashed #e0d6c6;
+            position: relative;
+        }
 
-    /* heading text (single-line) */
-    .toc-heading {
-      flex: 1;
-      font-weight: 600;
-      color: var(--text);
-      text-decoration: none;
-      display: block;
-      width: 100%;
-      font-size: 16px;
-      text-transform: lowercase;
-    }
-    .toc-heading .meta {
-      display: inline-block;
-      font-weight: 400;
-      color: var(--muted);
-      float: right;
-      text-transform: lowercase;
-      font-size: 14px;
-    }
+        .toggle-btn {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            min-height: 20px;
+            border-radius: 4px;
+            border: 1px solid #cfcfcf;
+            background: white;
+            display: inline-grid;
+            place-items: center;
+            font-size: 12px;
+            line-height: 1;
+            color: var(--accent);
+            user-select: none;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+        .toggle-btn[aria-expanded="true"] { transform: rotate(90deg); }
 
-    /* hidden description panel */
-    .desc {
-      display: none;
-      padding: 10px 30px;
-      background: rgba(255,255,255,0.4);
-      border-left: 2px solid #e6dfd1;
-      margin-top: 6px;
-      font-size: 15px;
-      line-height: 1.5;
-      color: var(--text);
-    }
-    .desc p {
-      margin: 0 0 6px 0;
-      text-transform: lowercase;
-    }
-    .desc a.project-link {
-      display: inline-block;
-      margin-top: 4px;
-      text-decoration: none;
-      font-weight: 600;
-      color: var(--accent);
-      font-size: 14px;
-    }
-    .desc a.project-link::before { content: "-> "; color: var(--accent); }
+        .toc-heading {
+            flex: 1;
+            font-weight: 600;
+            color: var(--text);
+            display: block;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer; /* whole heading clickable */
+            /* visible text lowercase */
+            text-transform: lowercase;
+        }
+        .toc-heading .meta {
+            display: inline-block;
+            font-weight: 400;
+            color: var(--muted);
+            float: right;
+            font-size: 14px;
+            text-transform: lowercase;
+        }
 
-    /* small-screen adjustments */
-    @media (max-width: 599px) {
-      body { padding: 12px; font-size: 16px; }
-      h1 { font-size: 26px; }
-    }
+        .desc {
+            display: none;
+            padding: 10px 30px;
+            background: rgba(255,255,255,0.4);
+            border-left: 2px solid #e6dfd1;
+            margin-top: 6px;
+            font-size: 15px;
+            line-height: 1.5;
+            color: var(--text);
+            text-transform: lowercase; /* visible description lowercase */
+        }
+        .desc p { margin: 0 0 6px 0; }
+        .desc a.project-link {
+            display: inline-block;
+            margin-top: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 14px;
+            text-transform: lowercase;
+        }
+        .desc a.project-link::before { content: "-> "; color: var(--accent); }
 
-    /* accessibility focus */
-    .toggle-btn:focus {
-      outline: 3px solid rgba(12,13,13,0.12);
-      outline-offset: 2px;
-    }
-  </style>
+        /* small-screen adjustments */
+        @media (max-width: 599px) {
+            body { padding: 12px; font-size: 16px; }
+            h1 { font-size: 26px; }
+        }
+
+        /* keyboard focus */
+        .toggle-btn:focus, .toc-heading:focus {
+            outline: 3px solid rgba(12,13,13,0.12);
+            outline-offset: 2px;
+        }
+    </style>
 </head>
 <body>
-  <div class="navbar">
-    <a href="/">home-page</a>
-    <a href="about.html">about-me</a>
-  </div>
-
-  <h1>my-personal-work</h1>
-
-  <!-- three parallel sections -->
-  <div class="three-cols">
-    <!-- ai column -->
-    <div class="col" id="ai-col" aria-labelledby="ai-heading">
-      <h2 id="ai-heading">ai</h2>
-      <ul class="toc" id="ai-list">
-        <!-- ai projects -->
-        <li class="toc-item">
-          <button class="toggle-btn" aria-expanded="false" aria-controls="desc-mini-gpt" title="expand">▶</button>
-          <div class="toc-heading">mini-gpt from scratch <span class="meta">dec, 2023</span></div>
-        </li>
-        <div class="desc" id="desc-mini-gpt">
-          <p>i implemented decoder part of transformer (text generation) in a compact notebook. used the original transformer ideas (decoder-only) to train and sample text.</p>
-          <a class="project-link" href="https://github.com/xanderex-sid/Transformer-Models/blob/main/miniGPT.ipynb" target="_blank" rel="noopener">project-link</a>
-        </div>
-
-        <li class="toc-item">
-          <button class="toggle-btn" aria-expanded="false" aria-controls="desc-fsrcnn" title="expand">▶</button>
-          <div class="toc-heading">implementing fast-high-resolution-convolution-neural-network from scratch <span class="meta">dec, 2024</span></div>
-        </li>
-        <div class="desc" id="desc-fsrcnn">
-          <p>implemented the research paper "accelerating the super-resolution convolutional neural network" from scratch in pytorch.</p>
-          <a class="project-link" href="https://github.com/xanderex-sid/FSRCNN" target="_blank" rel="noopener">project-link</a>
-        </div>
-
-        <li class="toc-item">
-          <button class="toggle-btn" aria-expanded="false" aria-controls="desc-pong-rl" title="expand">▶</button>
-          <div class="toc-heading">reinforcement-learning-with-atari-pong-game <span class="meta">sep, 2024</span></div>
-        </li>
-        <div class="desc" id="desc-pong-rl">
-          <p>trained an atari pong agent (pytorch) inspired by karpathy's code. compatible with gpu and experiments for cnn / mlp models.</p>
-          <a class="project-link" href="https://github.com/xanderex-sid/reinforcement_learning/tree/main/pong_rl" target="_blank" rel="noopener">project-link</a>
-        </div>
-
-        <li class="toc-item">
-          <button class="toggle-btn" aria-expanded="false" aria-controls="desc-talesynth" title="expand">▶</button>
-          <div class="toc-heading">tale-synth-lite <span class="meta">dec, 2023</span></div>
-        </li>
-        <div class="desc" id="desc-talesynth">
-          <p>end-to-end storytelling tool using transformer model and word2vec embeddings; used sentencepiece for tokenization.</p>
-          <a class="project-link" href="https://github.com/xanderex-sid/Transformer-Models/blob/main/TaleSynthLite.ipynb" target="_blank" rel="noopener">project-link</a>
-        </div>
-      </ul>
+    <div class="navbar">
+        <a href="/">home-page</a>
+        <a href="about.html">about-me</a>
     </div>
 
-    <!-- ai softwares & systems column -->
-    <div class="col" id="ai-soft-col" aria-labelledby="ai-soft-heading">
-      <h2 id="ai-soft-heading">ai softwares & systems</h2>
-      <ul class="toc" id="ai-soft-list">
-        <!-- ai software/system projects -->
-        <li class="toc-item">
-          <button class="toggle-btn" aria-expanded="false" aria-controls="desc-tokenizers" title="expand">▶</button>
-          <div class="toc-heading">tokenizers for language models <span class="meta">dec, 2024</span></div>
-        </li>
-        <div class="desc" id="desc-tokenizers">
-          <p>learning and experimenting with tokenizers for llms (references: andrej karpathy and open resources).</p>
-          <a class="project-link" href="https://github.com/xanderex-sid/LangModel-Tokenizers" target="_blank" rel="noopener">project-link</a>
+    <h1>my-personal-work</h1>
+
+    <div class="three-cols">
+        <!-- ai -->
+        <div class="col" id="ai-col" aria-labelledby="ai-heading">
+            <h2 id="ai-heading">ai</h2>
+            <ul class="toc" id="ai-list">
+                <li class="toc-item">
+                    <button class="toggle-btn" aria-expanded="false" aria-controls="desc-mini-gpt" title="expand">▶</button>
+                    <div class="toc-heading" tabindex="0" data-controls="desc-mini-gpt">mini-gpt from scratch <span class="meta">dec, 2023</span></div>
+                </li>
+                <div class="desc" id="desc-mini-gpt">
+                    <p>i implemented decoder part of transformer (text generation) in a compact notebook. used the original transformer ideas (decoder-only) to train and sample text.</p>
+                    <a class="project-link" href="https://github.com/xanderex-sid/Transformer-Models/blob/main/miniGPT.ipynb" target="_blank" rel="noopener">project-link</a>
+                </div>
+
+                <li class="toc-item">
+                    <button class="toggle-btn" aria-expanded="false" aria-controls="desc-fsrcnn" title="expand">▶</button>
+                    <div class="toc-heading" tabindex="0" data-controls="desc-fsrcnn">implementing fast-high-resolution-convolution-neural-network from scratch <span class="meta">dec, 2024</span></div>
+                </li>
+                <div class="desc" id="desc-fsrcnn">
+                    <p>implemented the research paper "accelerating the super-resolution convolutional neural network" from scratch in pytorch.</p>
+                    <a class="project-link" href="https://github.com/xanderex-sid/FSRCNN" target="_blank" rel="noopener">project-link</a>
+                </div>
+
+                <li class="toc-item">
+                    <button class="toggle-btn" aria-expanded="false" aria-controls="desc-pong-rl" title="expand">▶</button>
+                    <div class="toc-heading" tabindex="0" data-controls="desc-pong-rl">reinforcement-learning-with-atari-pong-game <span class="meta">sep, 2024</span></div>
+                </li>
+                <div class="desc" id="desc-pong-rl">
+                    <p>trained an atari pong agent (pytorch) inspired by karpathy's code. compatible with gpu and experiments for cnn / mlp models.</p>
+                    <a class="project-link" href="https://github.com/xanderex-sid/reinforcement_learning/tree/main/pong_rl" target="_blank" rel="noopener">project-link</a>
+                </div>
+
+                <li class="toc-item">
+                    <button class="toggle-btn" aria-expanded="false" aria-controls="desc-talesynth" title="expand">▶</button>
+                    <div class="toc-heading" tabindex="0" data-controls="desc-talesynth">tale-synth-lite <span class="meta">dec, 2023</span></div>
+                </li>
+                <div class="desc" id="desc-talesynth">
+                    <p>end-to-end storytelling tool using transformer model and word2vec embeddings; used sentencepiece for tokenization.</p>
+                    <a class="project-link" href="https://github.com/xanderex-sid/Transformer-Models/blob/main/TaleSynthLite.ipynb" target="_blank" rel="noopener">project-link</a>
+                </div>
+            </ul>
         </div>
 
-        <li class="toc-item">
-          <button class="toggle-btn" aria-expanded="false" aria-controls="desc-rakumon" title="expand">▶</button>
-          <div class="toc-heading">rakumon - a hyper-personalized e-commerce platform <span class="meta">sep, 2024</span></div>
-        </li>
-        <div class="desc" id="desc-rakumon">
-          <p>built ai agent using gemini and mistral, vector db with pinecone and faiss, retrieval-augmented-generation, frontend/backend with fastapi, flask, html/css/js.</p>
-          <a class="project-link" href="https://github.com/xanderex-sid/Rakumon" target="_blank" rel="noopener">project-link</a>
+        <!-- ai softwares & systems -->
+        <div class="col" id="ai-soft-col" aria-labelledby="ai-soft-heading">
+            <h2 id="ai-soft-heading">ai softwares & systems</h2>
+            <ul class="toc" id="ai-soft-list">
+                <li class="toc-item">
+                    <button class="toggle-btn" aria-expanded="false" aria-controls="desc-tokenizers" title="expand">▶</button>
+                    <div class="toc-heading" tabindex="0" data-controls="desc-tokenizers">tokenizers for language models <span class="meta">dec, 2024</span></div>
+                </li>
+                <div class="desc" id="desc-tokenizers">
+                    <p>learning and experimenting with tokenizers for llms (references: andrej karpathy and open resources).</p>
+                    <a class="project-link" href="https://github.com/xanderex-sid/LangModel-Tokenizers" target="_blank" rel="noopener">project-link</a>
+                </div>
+
+                <li class="toc-item">
+                    <button class="toggle-btn" aria-expanded="false" aria-controls="desc-rakumon" title="expand">▶</button>
+                    <div class="toc-heading" tabindex="0" data-controls="desc-rakumon">rakumon - a hyper-personalized e-commerce platform <span class="meta">sep, 2024</span></div>
+                </li>
+                <div class="desc" id="desc-rakumon">
+                    <p>built ai agent using gemini and mistral, vector db with pinecone and faiss, retrieval-augmented-generation, frontend/backend with fastapi, flask, html/css/js.</p>
+                    <a class="project-link" href="https://github.com/xanderex-sid/Rakumon" target="_blank" rel="noopener">project-link</a>
+                </div>
+
+                <li class="toc-item">
+                    <button class="toggle-btn" aria-expanded="false" aria-controls="desc-dataentry" title="expand">▶</button>
+                    <div class="toc-heading" tabindex="0" data-controls="desc-dataentry">data-entry-automation <span class="meta">feb, 2023</span></div>
+                </li>
+                <div class="desc" id="desc-dataentry">
+                    <p>automation tool that scrapes data and fills google forms automatically; used example with house prices and addresses from zillow.</p>
+                    <a class="project-link" href="https://github.com/xanderex-sid/Data-Entry-Automation" target="_blank" rel="noopener">project-link</a>
+                </div>
+
+                <li class="toc-item">
+                    <button class="toggle-btn" aria-expanded="false" aria-controls="desc-sketchfavicon" title="expand">▶</button>
+                    <div class="toc-heading" tabindex="0" data-controls="desc-sketchfavicon">sketch-favicon <span class="meta">nov, 2024</span></div>
+                </li>
+                <div class="desc" id="desc-sketchfavicon">
+                    <p>a toy frontend project to help make favicons and to learn html/css/js more clearly.</p>
+                    <a class="project-link" href="https://xanderex-sid.github.io/sketch-favicon/" target="_blank" rel="noopener">project-link</a>
+                </div>
+
+                <li class="toc-item">
+                    <button class="toggle-btn" aria-expanded="false" aria-controls="desc-rps" title="expand">▶</button>
+                    <div class="toc-heading" tabindex="0" data-controls="desc-rps">rock-paper-scissor <span class="meta">nov, 2024</span></div>
+                </li>
+                <div class="desc" id="desc-rps">
+                    <p>toy project to learn basics of html, css and js by implementing the classic rock-paper-scissor game.</p>
+                    <a class="project-link" href="https://xanderex-sid.github.io/rock-paper-scissor/" target="_blank" rel="noopener">project-link</a>
+                </div>
+
+                <li class="toc-item">
+                    <button class="toggle-btn" aria-expanded="false" aria-controls="desc-spaceinv" title="expand">▶</button>
+                    <div class="toc-heading" tabindex="0" data-controls="desc-spaceinv">space-invaders-game <span class="meta">oct, 2022</span></div>
+                </li>
+                <div class="desc" id="desc-spaceinv">
+                    <p>nostalgic space invader game built while learning python (inspired by udemy 100 days of python).</p>
+                    <a class="project-link" href="https://github.com/xanderex-sid/Space-Invaders-Game" target="_blank" rel="noopener">project-link</a>
+                </div>
+            </ul>
         </div>
 
-        <li class="toc-item">
-          <button class="toggle-btn" aria-expanded="false" aria-controls="desc-dataentry" title="expand">▶</button>
-          <div class="toc-heading">data-entry-automation <span class="meta">feb, 2023</span></div>
-        </li>
-        <div class="desc" id="desc-dataentry">
-          <p>automation tool that scrapes data and fills google forms automatically; used example with house prices and addresses from zillow.</p>
-          <a class="project-link" href="https://github.com/xanderex-sid/Data-Entry-Automation" target="_blank" rel="noopener">project-link</a>
+        <!-- ai hardware (empty) -->
+        <div class="col" id="ai-hw-col" aria-labelledby="ai-hw-heading">
+            <h2 id="ai-hw-heading">ai hardware</h2>
+            <p class="empty">no projects yet — (left empty for hardware entries, fill later).</p>
+            <ul class="toc" id="ai-hw-list"></ul>
         </div>
-
-        <li class="toc-item">
-          <button class="toggle-btn" aria-expanded="false" aria-controls="desc-sketchfavicon" title="expand">▶</button>
-          <div class="toc-heading">sketch-favicon <span class="meta">nov, 2024</span></div>
-        </li>
-        <div class="desc" id="desc-sketchfavicon">
-          <p>a toy frontend project to help make favicons and to learn html/css/js more clearly.</p>
-          <a class="project-link" href="https://xanderex-sid.github.io/sketch-favicon/" target="_blank" rel="noopener">project-link</a>
-        </div>
-
-        <li class="toc-item">
-          <button class="toggle-btn" aria-expanded="false" aria-controls="desc-rps" title="expand">▶</button>
-          <div class="toc-heading">rock-paper-scissor <span class="meta">nov, 2024</span></div>
-        </li>
-        <div class="desc" id="desc-rps">
-          <p>toy project to learn basics of html, css and js by implementing the classic rock-paper-scissor game.</p>
-          <a class="project-link" href="https://xanderex-sid.github.io/rock-paper-scissor/" target="_blank" rel="noopener">project-link</a>
-        </div>
-
-        <li class="toc-item">
-          <button class="toggle-btn" aria-expanded="false" aria-controls="desc-spaceinv" title="expand">▶</button>
-          <div class="toc-heading">space-invaders-game <span class="meta">oct, 2022</span></div>
-        </li>
-        <div class="desc" id="desc-spaceinv">
-          <p>nostalgic space invader game built while learning python (inspired by udemy 100 days of python).</p>
-          <a class="project-link" href="https://github.com/xanderex-sid/Space-Invaders-Game" target="_blank" rel="noopener">project-link</a>
-        </div>
-      </ul>
     </div>
 
-    <!-- ai hardware column (left empty for user to fill) -->
-    <div class="col" id="ai-hw-col" aria-labelledby="ai-hw-heading">
-      <h2 id="ai-hw-heading">ai hardware</h2>
-      <p class="empty">no projects yet — (left empty for hardware entries, fill later).</p>
-      <ul class="toc" id="ai-hw-list">
-        <!-- intentionally empty -->
-      </ul>
-    </div>
-  </div>
+    <p style="color:var(--muted); margin-top:18px; font-size:14px; text-transform:lowercase;">
+        click the arrow or the heading to reveal project description and project-link.
+    </p>
 
-  <!-- optional brief note / instructions (lowercase) -->
-  <p style="color:var(--muted); margin-top:18px; font-size:14px;">
-    click the arrow to reveal project description and project-link.
-  </p>
+    <script>
+        // toggle logic: arrow button OR entire heading toggles the description
+        document.addEventListener('DOMContentLoaded', function () {
+            // helper to toggle a panel
+            function togglePanel(btn, panel) {
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                btn.setAttribute('aria-expanded', String(!expanded));
+                panel.style.display = expanded ? 'none' : 'block';
+                panel.setAttribute('aria-hidden', String(expanded));
+                btn.textContent = expanded ? '▶' : '▾';
+            }
 
-  <script>
-    // simple accessible toggle behavior: wires each button to its panel
-    document.addEventListener('DOMContentLoaded', function () {
-      // find all toggle buttons
-      const buttons = Array.from(document.querySelectorAll('.toggle-btn'));
-      buttons.forEach(btn => {
-        const panelId = btn.getAttribute('aria-controls');
-        const panel = document.getElementById(panelId);
-        // if panel doesn't exist, ignore
-        if (!panel) return;
-        // initialize aria-hidden
-        panel.setAttribute('aria-hidden', 'true');
+            // wire buttons
+            const buttons = Array.from(document.querySelectorAll('.toggle-btn'));
+            buttons.forEach(btn => {
+                const panelId = btn.getAttribute('aria-controls');
+                const panel = document.getElementById(panelId);
+                if (!panel) return;
+                panel.setAttribute('aria-hidden', 'true');
+                btn.addEventListener('click', function () { togglePanel(btn, panel); });
+                btn.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+                });
+            });
 
-        btn.addEventListener('click', function (e) {
-          const expanded = btn.getAttribute('aria-expanded') === 'true';
-          btn.setAttribute('aria-expanded', String(!expanded));
-          panel.style.display = expanded ? 'none' : 'block';
-          panel.setAttribute('aria-hidden', String(expanded));
-          // rotate arrow visually by toggling the content character
-          btn.textContent = '▶';
-          if (!expanded) btn.textContent = '▾';
+            // wire headings (so clicking the full heading toggles)
+            const headings = Array.from(document.querySelectorAll('.toc-heading'));
+            headings.forEach(h => {
+                const panelId = h.getAttribute('data-controls');
+                const panel = document.getElementById(panelId);
+                const btn = Array.from(document.querySelectorAll('.toggle-btn'))
+                              .find(b => b.getAttribute('aria-controls') === panelId);
+                if (!panel || !btn) return;
+
+                // click handler for heading
+                h.addEventListener('click', function () { togglePanel(btn, panel); });
+
+                // keyboard activation (enter/space)
+                h.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        h.click();
+                    }
+                });
+            });
         });
-
-        // allow keyboard activation (enter/space)
-        btn.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            btn.click();
-          }
-        });
-      });
-    });
-  </script>
+    </script>
 </body>
 </html>
