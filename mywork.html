@@ -141,21 +141,24 @@
         }
 
         .toggle-btn {
-            width: 20px;
-            height: 20px;
-            min-width: 20px;
-            min-height: 20px;
-            border-radius: 4px;
-            border: 1px solid #cfcfcf;
-            background: white;
-            display: inline-grid;
-            place-items: center;
-            font-size: 12px;
-            line-height: 1;
-            color: var(--accent);
-            user-select: none;
-            cursor: pointer;
-            transition: transform 0.15s ease;
+          width: 20px;
+          height: 20px;
+          min-width: 20px;
+          min-height: 20px;
+          border-radius: 4px;
+          border: 1px solid transparent;      /* hide border */
+          background: var(--bg);               /* match page background (#f5eedc) */
+          display: inline-grid;
+          place-items: center;
+          font-size: 12px;
+          line-height: 1;
+          color: var(--accent);                /* arrow color (keeps arrow black) */
+          user-select: none;
+          cursor: pointer;
+          transition: transform 0.15s ease, box-shadow 0.12s;
+        }
+        .toggle-btn:focus {
+          box-shadow: 0 0 0 3px rgba(12,13,13,0.08); /* accessible focus ring */
         }
         .toggle-btn[aria-expanded="true"] { transform: rotate(90deg); }
 
