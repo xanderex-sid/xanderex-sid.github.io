@@ -50,36 +50,35 @@
         /* --- navbar: size restored to original behavior --- */
         .navbar {
             width: 100%;
-            background-color: var(--bg);
+            background-color: #f5eedc;
             border-bottom: 1px solid #ddd;
             overflow: hidden;
-            text-align: center;
-            font-size: 14px; /* original base */
-            padding: 6px 0;
+            text-align: center; /* Center align text */
+            font-size: 14px; /* Decrease font size for navbar on mobile */
         }
         .navbar a {
             display: inline-block;
             color: black;
             text-align: center;
-            padding: 8px 12px;
+            padding: 10px 15px; /* Adjusted padding for better touch target */
             text-decoration: none;
-            position: relative;
-            /* visible text lowercase */
-            text-transform: lowercase;
+            position: relative; /* Ensure relative positioning for pseudo-element */
         }
         .navbar a::after {
             content: '';
             display: block;
             width: 0;
             height: 2px;
-            background-color: var(--accent);
+            background-color: #0c0d0d;
             position: absolute;
-            bottom: -2px;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            transition: width 0.25s ease;
+            transition: width 0.3s ease; /* Smooth transition for width */
         }
-        .navbar a:hover::after { width: 100%; }
+        .navbar a:hover::after {
+            width: 100%; /* Expand width on hover */
+        }
 
         @media (min-width: 600px) {
             .navbar { font-size: 18px; } /* restored original breakpoint */
