@@ -1,0 +1,140 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Panel from '../components/Panel.astro';
+import NewsList from '../components/NewsList.astro';
+import PublicationList from '../components/PublicationList.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import Icon from '../components/Icon.astro';
+import { SITE, RESUME_URL } from '../consts';
+import banner from '../assets/banner.jpg';
+// Face-centred square crop of profile.jpg — regenerate with `node scripts/make-avatar.mjs`.
+import profile from '../assets/profile-avatar.jpg';
+
+const news = (await getCollection('news')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const publications = (await getCollection('publications')).sort(
+  (a, b) => b.data.year - a.data.year
+);
+
+const interests = [
+  {
+    title: 'Spatial AI',
+    body: 'Making models reason about 3D structure at infrastructure scale — semantic segmentation of LiDAR and photogrammetry point clouds, optimized voxel sampling (FPS, Morton code), and architectures such as PointNet-EdgeConv, RandLA-Net and Point Transformer V3.',
+    todo: null,
+  },
+  {
+    title: 'Robotics',
+    body: 'Connecting 3D scene understanding to embodied decision-making: perception stacks that turn raw range data into maps and affordances a robot can act on in real time.',
+    todo: "TODO(sid): your resume doesn't mention robotics work, so this description is a placeholder framing of the interest rather than a claim about your experience. Rewrite it in your own words.",
+  },
+];
+---
+
+<BaseLayout title={SITE.title} description={SITE.description}>
+  <div class="mx-auto flex max-w-5xl flex-col gap-5 pt-5 sm:gap-6">
+    <!-- ================= HERO ================= -->
+    <section class="glass overflow-hidden rounded-2xl">
+      <!-- Wide banner -->
+      <div class="relative h-28 w-full sm:h-40 md:h-48">
+        <Image
+          src={banner}
+          alt=""
+          widths={[800, 1400]}
+          sizes="(min-width: 1024px) 1024px, 100vw"
+          loading="eager"
+          fetchpriority="high"
+          class="h-full w-full object-cover"
+        />
+      </div>
+
+      <div class="px-5 pb-6 sm:px-7 sm:pb-7">
+        <!-- Circular avatar, overlapping the banner at the left -->
+        <Image
+          src={profile}
+          alt="Siddharth Mishra"
+          widths={[192, 384]}
+          sizes="(min-width: 640px) 128px, 96px"
+          loading="eager"
+          class="-mt-12 h-24 w-24 rounded-full border-4 border-white object-cover shadow-lg sm:-mt-16 sm:h-32 sm:w-32"
+        />
+
+        <h1 class="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">Siddharth Mishra</h1>
+        <p class="mt-1.5 max-w-2xl text-[0.98rem] leading-relaxed text-[var(--color-ink-soft)]">
+          Data Scientist at Deepmatrix, working on Spatial AI — LiDAR and photogrammetry
+          point-cloud segmentation, and geospatial object detection.
+        </p>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <a
+            href={RESUME_URL}
+            class="inline-flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white no-underline shadow-sm transition-colors hover:bg-[var(--color-accent-strong)] hover:text-white"
+          >
+            <Icon name="download" size={16} />
+            Download CV
+          </a>
+          <SocialLinks />
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= RECENT NEWS ================= -->
+    <Panel title="Recent news" id="news">
+      <NewsList items={news} />
+    </Panel>
+
+    <!-- ================= ABOUT ================= -->
+    <Panel title="About" id="about">
+      <div class="flex max-w-3xl flex-col gap-3.5 text-[0.97rem] leading-relaxed text-[var(--color-ink-soft)]">
+        <p>
+          I'm a Data Scientist at <strong class="font-semibold text-[var(--color-ink)]"
+            >Deepmatrix Private Limited</strong
+          >, where I build geospatial computer vision systems. Day to day that means end-to-end
+          semantic segmentation pipelines for LiDAR and photogrammetry point clouds, oriented
+          bounding-box detection for power-line and cell-tower defects, and few-shot detection
+          across satellite, orthomosaic and SAR imagery.
+        </p>
+        <p>
+          I graduated from the <strong class="font-semibold text-[var(--color-ink)]"
+            >Indian Institute of Technology (Indian School of Mines) Dhanbad</strong
+          > in May 2025 with a B.Tech in Electrical Engineering (CGPA 8.68). Before that I was an
+          AI/ML intern at Deepmatrix, working on orthomosaic segmentation and GIS automation.
+        </p>
+        <p>
+          I also like building things from first principles — reimplementing YOLOv11 and a
+          decoder-only transformer from scratch, mostly to understand what the abstractions are
+          hiding.
+        </p>
+      </div>
+    </Panel>
+
+    <!-- ================= RESEARCH INTERESTS ================= -->
+    <Panel title="Research interests" id="interests">
+      <div class="grid gap-4 md:grid-cols-2">
+        {
+          interests.map((interest) => (
+            <div class="rounded-xl border border-white/70 bg-white/50 p-4 sm:p-5">
+              <h3 class="text-base font-semibold tracking-tight sm:text-lg">{interest.title}</h3>
+              <p class="mt-2 text-[0.93rem] leading-relaxed text-[var(--color-ink-soft)]">
+                {interest.body}
+              </p>
+              {interest.todo && (
+                <p class="mt-3 rounded-md border border-dashed border-amber-500/50 bg-amber-50/70 px-3 py-2 text-[0.78rem] leading-relaxed text-amber-900">
+                  {interest.todo}
+                </p>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </Panel>
+
+    <!-- ================= PUBLICATIONS ================= -->
+    <Panel title="Publications" id="publications">
+      <PublicationList items={publications} />
+    </Panel>
+  </div>
+</BaseLayout>

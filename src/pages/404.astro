@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { NAV_LINKS } from '../consts';
+---
+
+<BaseLayout title="Page not found" description="That page doesn't exist." noindex>
+  <div class="mx-auto flex max-w-2xl items-center pt-16 sm:pt-24">
+    <div class="glass w-full rounded-2xl px-6 py-10 text-center sm:px-10 sm:py-14">
+      <p
+        class="font-mono text-5xl font-bold tracking-tight text-[var(--color-accent)] sm:text-6xl"
+      >
+        404
+      </p>
+      <h1 class="mt-4 text-xl font-semibold tracking-tight sm:text-2xl">
+        This page drifted off somewhere
+      </h1>
+      <p class="mx-auto mt-2.5 max-w-md text-[0.97rem] leading-relaxed text-[var(--color-ink-soft)]">
+        The page you're looking for doesn't exist, or it moved. Try one of these instead.
+      </p>
+
+      <ul class="mt-7 flex flex-wrap justify-center gap-2.5">
+        {
+          NAV_LINKS.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="inline-flex items-center rounded-lg border border-white/70 bg-white/60 px-4 py-2 text-sm font-semibold no-underline transition-colors hover:bg-white"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</BaseLayout>

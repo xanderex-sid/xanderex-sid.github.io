@@ -1,0 +1,32 @@
+---
+/** A frosted-glass section container with a heading. */
+interface Props {
+  title?: string;
+  id?: string;
+  class?: string;
+  strong?: boolean;
+}
+const { title, id, class: className = '', strong = false } = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={[
+    strong ? 'glass-strong' : 'glass',
+    'rounded-2xl px-5 py-6 sm:px-7 sm:py-7',
+    className,
+  ]}
+  aria-labelledby={title && id ? `${id}-heading` : undefined}
+>
+  {
+    title && (
+      <h2
+        id={id ? `${id}-heading` : undefined}
+        class="mb-5 text-xl font-semibold tracking-tight sm:text-2xl"
+      >
+        {title}
+      </h2>
+    )
+  }
+  <slot />
+</section>

@@ -1,0 +1,119 @@
+---
+import { NAV_LINKS, SITE } from '../consts';
+import Icon from './Icon.astro';
+
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path === href || path.startsWith(href + '/');
+---
+
+<header class="sticky top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
+  <nav
+    class="glass mx-auto flex max-w-5xl items-center justify-between gap-4 rounded-2xl px-4 py-2.5 sm:px-5"
+    aria-label="Primary"
+  >
+    <a
+      href="/"
+      class="rounded-md text-[0.95rem] font-semibold tracking-tight text-[var(--color-ink)] no-underline hover:text-[var(--color-accent-strong)]"
+    >
+      {SITE.title}
+    </a>
+
+    <!-- Desktop nav -->
+    <ul class="hidden items-center gap-1 sm:flex">
+      {
+        NAV_LINKS.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              aria-current={isActive(link.href) ? 'page' : undefined}
+              class:list={[
+                'rounded-lg px-3 py-1.5 text-sm font-medium no-underline transition-colors',
+                isActive(link.href)
+                  ? 'bg-[var(--color-accent-soft)] text-[var(--color-accent-strong)]'
+                  : 'text-[var(--color-ink-soft)] hover:bg-white/60 hover:text-[var(--color-accent-strong)]',
+              ]}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- Mobile toggle -->
+    <button
+      type="button"
+      id="menu-toggle"
+      class="inline-flex items-center justify-center rounded-lg p-2 text-[var(--color-ink-soft)] hover:bg-white/60 sm:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <Icon name="menu" size={22} class="menu-open-icon" />
+      <Icon name="close" size={22} class="menu-close-icon hidden" />
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="glass mx-auto mt-2 hidden max-w-5xl rounded-2xl p-2 sm:hidden"
+  >
+    <ul class="flex flex-col gap-1">
+      {
+        NAV_LINKS.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              aria-current={isActive(link.href) ? 'page' : undefined}
+              class:list={[
+                'block rounded-lg px-3 py-2.5 text-sm font-medium no-underline',
+                isActive(link.href)
+                  ? 'bg-[var(--color-accent-soft)] text-[var(--color-accent-strong)]'
+                  : 'text-[var(--color-ink-soft)] hover:bg-white/60',
+              ]}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  if (toggle && menu) {
+    const openIcon = toggle.querySelector('.menu-open-icon');
+    const closeIcon = toggle.querySelector('.menu-close-icon');
+
+    const setOpen = (open: boolean) => {
+      menu.classList.toggle('hidden', !open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      openIcon?.classList.toggle('hidden', open);
+      closeIcon?.classList.toggle('hidden', !open);
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    // Esc closes and returns focus to the toggle.
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    // Reset when crossing into the desktop breakpoint.
+    window.matchMedia('(min-width: 640px)').addEventListener('change', (e) => {
+      if (e.matches) setOpen(false);
+    });
+  }
+</script>

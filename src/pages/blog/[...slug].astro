@@ -1,0 +1,37 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import PostLayout from '../../layouts/PostLayout.astro';
+import { readingTime } from '../../utils/reading-time';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+  );
+
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      // Newest-first ordering: the "next" card points at the newer post.
+      next: i > 0 ? { id: posts[i - 1].id, title: posts[i - 1].data.title } : null,
+      prev:
+        i < posts.length - 1
+          ? { id: posts[i + 1].id, title: posts[i + 1].data.title }
+          : null,
+    },
+  }));
+}
+
+type Props = {
+  post: CollectionEntry<'blog'>;
+  prev: { id: string; title: string } | null;
+  next: { id: string; title: string } | null;
+};
+
+const { post, prev, next } = Astro.props;
+const { Content } = await render(post);
+---
+
+<PostLayout post={post} readingTime={readingTime(post.body)} prev={prev} next={next}>
+  <Content />
+</PostLayout>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-label="Placeholder figure">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#eaf3ff"/>
+      <stop offset="100%" stop-color="#c9dff5"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="600" fill="url(#g)"/>
+  <rect x="14" y="14" width="1172" height="572" rx="14" fill="none" stroke="#7ba7d4" stroke-width="3" stroke-dasharray="14 12"/>
+  <text x="600" y="286" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="40" font-weight="600" fill="#31537a">Figure placeholder</text>
+  <text x="600" y="336" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="24" fill="#4d6f96">Drop a real image in public/images/ and update the src</text>
+</svg>

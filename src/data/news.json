@@ -1,0 +1,48 @@
+[
+  {
+    "id": "todo-latest",
+    "date": "2026-09-01",
+    "text": "TODO(sid): replace this entry with your latest news. Delete it once you add a real item — it renders on the homepage as-is."
+  },
+  {
+    "id": "decon-2025",
+    "date": "2025-12-01",
+    "text": "Paper on real-time state-of-charge estimation for EV batteries presented at IEEE DECoN 2025.",
+    "href": "https://doi.org/10.1109/DECoN67170.2025.11447768",
+    "linkText": "DOI"
+  },
+  {
+    "id": "yolo11-scratch",
+    "date": "2025-10-01",
+    "text": "Released YOLOv11 from scratch — a clean-room PyTorch implementation built for easy customisation.",
+    "href": "https://github.com/xanderex-sid/yolo11_from_scratch",
+    "linkText": "Code"
+  },
+  {
+    "id": "deepmatrix-ds",
+    "date": "2025-06-01",
+    "text": "Joined Deepmatrix Private Limited as a Data Scientist, working on geospatial computer vision."
+  },
+  {
+    "id": "graduation",
+    "date": "2025-05-01",
+    "text": "Graduated from IIT (ISM) Dhanbad with a B.Tech in Electrical Engineering."
+  },
+  {
+    "id": "fibe-hackathon",
+    "date": "2024-10-01",
+    "text": "Ranked top 10 of 3000+ teams in Fibe: Hack the Vibe! 2.0 text classification challenge."
+  },
+  {
+    "id": "rakathon-2024",
+    "date": "2024-08-01",
+    "text": "Second runner-up (top 3 of 6375 teams) at Rakathon 2024, Rakuten India's 24-hour competition, for Rakumon.",
+    "href": "https://github.com/xanderex-sid/Rakumon",
+    "linkText": "Code"
+  },
+  {
+    "id": "pytorch-docathon",
+    "date": "2023-11-01",
+    "text": "Honorable Mention in the PyTorch Docathon 2023 for open-source docstring contributions."
+  }
+]
