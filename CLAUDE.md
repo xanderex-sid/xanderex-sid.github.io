@@ -49,16 +49,18 @@ starting with `TODO` as absent and renders the poster instead. This keeps the TO
 `projects.json` rather than hiding it in a comment (JSON has none). Don't "fix" it by removing
 the field.
 
-**The avatar is a baked crop, not CSS.** `src/assets/profile.jpg` is a near-square full-body
-shot, so `object-cover` lands on the shirt and `object-position` can't zoom in — it can only
-reposition. `scripts/make-avatar.mjs` bakes a face-centred 512×512 crop to `profile-avatar.jpg`,
-which is what the homepage imports. Re-run it after replacing the source photo — and adjust the
-`CROP` constant, since it is hard-coded to the current photo's framing.
+**The hero is a two-column grid.** On sm+ it is
+`grid-cols-[minmax(0,15rem)_minmax(0,1fr)]`: the photo fills the full height of the block on the
+left, the banner strip and text sit on the right. The photo matches the text column's height
+purely via the grid's default `align-items: stretch` — adding `items-start`/`items-center` there
+will collapse it. The photo itself is `absolute inset-0 object-cover` inside a relative cell,
+which is what lets it fill an auto height. Below sm the grid collapses to one column and the
+photo gets an explicit `h-64`, since there is no sibling to stretch against.
 
-**The avatar is absolutely positioned with `z-10`.** It is a square pinned to the extreme top-left
-of the hero, painted *over* the banner. The `z-10` is required: the banner wrapper was previously
-`relative`, which made it paint above a statically-positioned avatar and clip its top edge. If the
-avatar ever looks cut off again, that stacking relationship is the first thing to check.
+**The hero photo uses `object-position: 57% 22%`.** `src/assets/profile.jpg` is a near-square
+full-body shot, so a centred crop lands on the shirt. There is no baked crop file any more — the
+tall column suits the original framing and object-position does the rest. Retune those percentages
+if you replace the photo.
 
 `scripts/make-og.mjs` similarly generates `public/og-default.png`; re-run after changing the
 tagline in `src/consts.ts`.

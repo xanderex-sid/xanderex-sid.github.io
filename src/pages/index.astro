@@ -9,8 +9,9 @@ import SocialLinks from '../components/SocialLinks.astro';
 import Icon from '../components/Icon.astro';
 import { SITE, RESUME_URL } from '../consts';
 import banner from '../assets/banner.jpg';
-// Face-centred square crop of profile.jpg — regenerate with `node scripts/make-avatar.mjs`.
-import profile from '../assets/profile-avatar.jpg';
+// Full portrait, not the old square crop: the hero photo column is tall, so the
+// original framing suits it and object-position does the rest.
+import profile from '../assets/profile.jpg';
 
 const news = (await getCollection('news')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -37,50 +38,59 @@ const interests = [
 <BaseLayout title={SITE.title} description={SITE.description}>
   <div class="mx-auto flex max-w-5xl flex-col gap-5 pt-5 sm:gap-6">
     <!-- ================= HERO ================= -->
-    <section class="glass relative overflow-hidden rounded-2xl">
-      <!-- Wide banner -->
-      <div class="h-28 w-full sm:h-40 md:h-48">
-        <Image
-          src={banner}
-          alt=""
-          widths={[800, 1400]}
-          sizes="(min-width: 1024px) 1024px, 100vw"
-          loading="eager"
-          fetchpriority="high"
-          class="h-full w-full object-cover"
-        />
-      </div>
-
+    <section class="glass overflow-hidden rounded-2xl">
       <!--
-        Square avatar pinned to the extreme top-left, painted ON TOP of the
-        banner. z-10 matters: the banner wrapper used to be `relative`, which
-        made it paint above the statically-positioned avatar and clip it.
+        Two columns on sm+: photo fills the full height of the block on the
+        left, everything else sits on the right. The grid's default
+        `align-items: stretch` is what makes the photo column match the height
+        of the taller text column — don't add `items-start` here.
+        Below sm it collapses to a single column: photo, banner, then text.
       -->
-      <Image
-        src={profile}
-        alt="Siddharth Mishra"
-        widths={[192, 384]}
-        sizes="(min-width: 640px) 128px, 96px"
-        loading="eager"
-        class="absolute left-5 top-4 z-10 h-24 w-24 rounded-lg border-4 border-white object-cover shadow-lg sm:left-7 sm:h-32 sm:w-32"
-      />
+      <div class="grid sm:grid-cols-[minmax(0,15rem)_minmax(0,1fr)]">
+        <!-- Photo column -->
+        <div class="relative h-64 sm:h-auto">
+          <Image
+            src={profile}
+            alt="Siddharth Mishra"
+            widths={[320, 640]}
+            sizes="(min-width: 640px) 240px, 100vw"
+            loading="eager"
+            fetchpriority="high"
+            class="absolute inset-0 h-full w-full object-cover object-[57%_22%]"
+          />
+        </div>
 
-      <div class="px-5 pb-6 pt-5 sm:px-7 sm:pb-7 sm:pt-6">
-        <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">Siddharth Mishra</h1>
-        <p class="mt-1.5 max-w-2xl text-[0.98rem] leading-relaxed text-[var(--color-ink-soft)]">
-          Data Scientist at Deepmatrix, working on Spatial AI — LiDAR and photogrammetry
-          point-cloud segmentation, and geospatial object detection.
-        </p>
+        <!-- Text column, with the banner as a strip above it -->
+        <div class="flex flex-col">
+          <div class="h-20 w-full shrink-0 sm:h-24">
+            <Image
+              src={banner}
+              alt=""
+              widths={[600, 1100]}
+              sizes="(min-width: 640px) 780px, 100vw"
+              loading="eager"
+              class="h-full w-full object-cover"
+            />
+          </div>
 
-        <div class="mt-5 flex flex-wrap items-center gap-3">
-          <a
-            href={RESUME_URL}
-            class="inline-flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white no-underline shadow-sm transition-colors hover:bg-[var(--color-accent-strong)] hover:text-white"
-          >
-            <Icon name="download" size={16} />
-            Download CV
-          </a>
-          <SocialLinks />
+          <div class="flex-1 px-5 py-6 sm:px-7 sm:py-7">
+            <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">Siddharth Mishra</h1>
+            <p class="mt-1.5 max-w-2xl text-[0.98rem] leading-relaxed text-[var(--color-ink-soft)]">
+              Data Scientist at Deepmatrix, working on Spatial AI — LiDAR and photogrammetry
+              point-cloud segmentation, and geospatial object detection.
+            </p>
+
+            <div class="mt-5 flex flex-wrap items-center gap-3">
+              <a
+                href={RESUME_URL}
+                class="inline-flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white no-underline shadow-sm transition-colors hover:bg-[var(--color-accent-strong)] hover:text-white"
+              >
+                <Icon name="download" size={16} />
+                Download CV
+              </a>
+              <SocialLinks />
+            </div>
+          </div>
         </div>
       </div>
     </section>
