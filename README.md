@@ -13,7 +13,7 @@ npm run preview  # serve the built dist/ locally
 npm run check    # TypeScript + Astro diagnostics
 ```
 
-Requires Node 20+ (built and tested on Node 22).
+Requires Node **22.12+** (Astro 7's minimum; built and tested on Node 22.23).
 
 ## Add a blog post
 

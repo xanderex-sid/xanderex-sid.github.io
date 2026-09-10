@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-Siddharth Mishra's personal site — Astro 5 + Tailwind v4 + MDX, deployed to GitHub Pages at
+Siddharth Mishra's personal site — Astro 7 + Tailwind v4 + MDX, deployed to GitHub Pages at
 <https://xanderex-sid.github.io>. Three pages: a research-profile homepage, an MDX blog, and a
 video-driven projects page.
 
@@ -50,32 +50,44 @@ starting with `TODO` as absent and renders the poster instead. This keeps the TO
 the field.
 
 **The avatar is a baked crop, not CSS.** `src/assets/profile.jpg` is a near-square full-body
-shot, so `object-cover` on a circle lands on the shirt and `object-position` can't zoom in.
-`scripts/make-avatar.mjs` bakes a face-centred 512×512 crop to `profile-avatar.jpg`, which is
-what the homepage imports. Re-run it after replacing the source photo — and adjust the `CROP`
-constant, since it is hard-coded to the current photo's framing.
+shot, so `object-cover` lands on the shirt and `object-position` can't zoom in — it can only
+reposition. `scripts/make-avatar.mjs` bakes a face-centred 512×512 crop to `profile-avatar.jpg`,
+which is what the homepage imports. Re-run it after replacing the source photo — and adjust the
+`CROP` constant, since it is hard-coded to the current photo's framing.
+
+**The avatar is absolutely positioned with `z-10`.** It is a square pinned to the extreme top-left
+of the hero, painted *over* the banner. The `z-10` is required: the banner wrapper was previously
+`relative`, which made it paint above a statically-positioned avatar and clip its top edge. If the
+avatar ever looks cut off again, that stacking relationship is the first thing to check.
 
 `scripts/make-og.mjs` similarly generates `public/og-default.png`; re-run after changing the
 tagline in `src/consts.ts`.
 
 ## Design system — readability is the explicit priority
 
-The brief was "sky seen through frosted glass", with the standing rule that **when aesthetics and
-readability conflict, readability wins**. Concretely:
+The backdrop is a **flat navy green** (`--color-navy: #0e3b38`) — deliberately uniform, with no
+light-to-dark gradient. The only tonal variation comes from the drifting haze blobs. Panels keep
+the frosted-glass treatment, so body copy is still dark ink on a light surface.
+
+Standing rule: **when aesthetics and readability conflict, readability wins.** Concretely:
 
 - Glass goes on cards, nav and section containers — never directly behind long-form text.
-- The blog reading card uses `.glass-strong` (93% opaque, and fully opaque under 640px) rather
-  than `.glass`. Prose is capped at 68ch.
+- The blog reading card uses `.glass-strong` (96% opaque, 98% under 640px). Prose caps at 68ch.
 - Code panels are **solid** `#0d1117` with no transparency and no backdrop-blur.
 - Under 640px `.glass` trades blur for opacity and `.glass-strong` drops `backdrop-filter`
   entirely — heavy blur is expensive to composite on mobile.
 
-Measured contrast (audited by sampling the real composited pixels behind text, since translucent
-panels can't be checked from CSS alone): 0 failures, minimum 4.91:1, body prose 17.4:1. If you
-lighten any ink token or raise panel transparency, re-audit rather than assuming.
+**Glass opacity is load-bearing, not decorative.** Because the backdrop is dark, `--glass-bg` sits
+at 0.88 rather than the 0.66 that worked over a light sky. Drop it back and the composite pulls
+muted text below AA. If you change the backdrop or any ink token, re-run the audit rather than
+eyeballing it — translucent panels cannot be checked from CSS alone, because the effective
+background is a composite. The method that works: screenshot with all glyphs set to
+`color: transparent`, sample the real pixel behind each text run, then compute the ratio.
 
-`--color-ink-faint` (#576781) is the tightest at ~4.9:1 and is for meta text only — don't use it
-for body copy.
+Last measured: 0 failures across home/blog/projects, minimum **5.6:1**, body prose 16.6:1.
+
+`--color-ink-faint` (#4d5a70) is the tightest and is for meta text only — don't use it for body
+copy.
 
 ## Accessibility invariants
 
