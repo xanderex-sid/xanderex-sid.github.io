@@ -1,6 +1,6 @@
 # xanderex-sid.github.io
 
-Personal site — Astro + Tailwind CSS + MDX, deployed to GitHub Pages at
+Personal site — Astro + Tailwind CSS, deployed to GitHub Pages at
 <https://xanderex-sid.github.io>.
 
 ## Run locally
@@ -14,48 +14,6 @@ npm run check    # TypeScript + Astro diagnostics
 ```
 
 Requires Node **22.12+** (Astro 7's minimum; built and tested on Node 22.23).
-
-## Add a blog post
-
-Create one file in `src/content/blog/`. The filename becomes the URL:
-`my-post.mdx` → `/blog/my-post`.
-
-```mdx
----
-title: 'Your post title'
-date: 2026-09-20
-description: 'One or two lines. Shown on the blog index and in search results.'
-tags: ['LiDAR', 'Deep Learning'] # optional
-cover: './my-cover.jpg'          # optional, relative to this file
-coverAlt: 'Describe the image'   # required if cover is set
-draft: false                     # true hides it from the site
----
-
-Your prose here.
-```
-
-Reading time is calculated automatically. Posts sort newest first.
-
-**Code blocks** support a filename label and optional line numbers:
-
-````text
-```python title="train/losses.py" showLineNumbers
-def loss_fn(logits, target):
-    ...
-```
-````
-
-Both are optional — ` ```python ` alone works and shows the language in the header.
-Every block gets a copy button automatically.
-
-**Images with captions** — put the file in `public/images/` and use a `<figure>`:
-
-```html
-<figure>
-  <img src="/images/my-figure.png" alt="Describe it" loading="lazy" />
-  <figcaption>Caption text.</figcaption>
-</figure>
-```
 
 ## Add a project
 
@@ -140,7 +98,8 @@ site moves to a project subpath.
 ## Other bits
 
 - **Editing name, tagline, nav, social links** → `src/consts.ts`.
-- **Colours, glass, prose and code styling** → `src/styles/global.css`.
+- **Colours and glass styling** → `src/styles/global.css`.
+- **Research interests** → the `research` object at the top of `src/pages/index.astro`.
 - **CV** → replace `public/resume.pdf`; it's linked from the homepage as `/resume.pdf`.
 - **Social preview card** → `public/og-default.png`. Regenerate after changing the
   tagline with `node scripts/make-og.mjs`.

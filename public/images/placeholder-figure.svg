@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-label="Placeholder figure">
-  <rect width="1200" height="600" fill="#e6f2ef"/>
-  <rect x="14" y="14" width="1172" height="572" rx="14" fill="none" stroke="#4e8f85" stroke-width="3" stroke-dasharray="14 12"/>
-  <text x="600" y="286" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="40" font-weight="600" fill="#124b45">Figure placeholder</text>
-  <text x="600" y="336" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="24" fill="#2c6a62">Drop a real image in public/images/ and update the src</text>
-</svg>

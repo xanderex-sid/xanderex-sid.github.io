@@ -8,11 +8,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-Siddharth Mishra's personal site — Astro 7 + Tailwind v4 + MDX, deployed to GitHub Pages at
-<https://xanderex-sid.github.io>. Three pages: a research-profile homepage, an MDX blog, and a
-video-driven projects page.
+Siddharth Mishra's personal site — Astro 7 + Tailwind v4, deployed to GitHub Pages at
+<https://xanderex-sid.github.io>. Two pages: a research-profile homepage and a video-driven
+projects page, plus a 404.
 
-`README.md` is the user-facing guide (add a post / project / news item / publication, deploy).
+There is deliberately **no blog**. It was removed in September 2026 along with MDX, Shiki and the
+code-block styling, because Sid isn't writing posts. Don't reintroduce any of it unless asked.
+
+`README.md` is the user-facing guide (add a project / news item / publication, deploy).
 This file covers things that aren't obvious from the code.
 
 ## Commands
@@ -20,7 +23,7 @@ This file covers things that aren't obvious from the code.
 ```bash
 npm run dev     # localhost:4321
 npm run build   # → dist/
-npm run check   # astro check (0 errors expected; 1 deprecation hint is known//accepted)
+npm run check   # astro check (expect 0 errors, 0 warnings)
 ```
 
 Node 22 was installed via `brew install node@22` and is **keg-only** — it is not on the default
@@ -32,17 +35,13 @@ export PATH="/opt/homebrew/opt/node@22/bin:$PATH"
 
 ## Architecture notes
 
-**Content is data-driven by design.** Blog posts are MDX files in `src/content/blog/`; news,
-publications and projects are JSON in `src/data/` loaded through typed collections in
-`src/content.config.ts`. Adding content should never require touching a component. Preserve that
-property.
+**Content is data-driven by design.** News, publications and projects are JSON in `src/data/`,
+loaded through typed collections in `src/content.config.ts`. Adding one should never require
+touching a component. The one exception is research interests, which live in the `research`
+object at the top of `src/pages/index.astro`.
 
-**Code blocks are a two-stage pipeline.** `astro.config.mjs` defines a Shiki transformer that
-copies fence metadata onto the `<pre>` as `data-lang` / `data-filename` / `data-line-numbers`
-(from ` ```python title="x.py" showLineNumbers `). `CodeBlockEnhancer.astro` then wraps each
-`<pre>` in a `.code-figure` at runtime and builds the header + copy button. Neither half works
-alone — if code blocks lose their headers, check both. Without JS the `<pre>` still renders and
-scrolls, just without a header.
+Import `z` from `astro/zod`, not from `astro:content` — the latter is deprecated and removed in
+Astro 8.
 
 **`videoSrc: "TODO"` is a deliberate sentinel.** `VideoBlock.astro` treats any `videoSrc`
 starting with `TODO` as absent and renders the poster instead. This keeps the TODO visible in
@@ -62,8 +61,19 @@ full-body shot, so a centred crop lands on the shirt. There is no baked crop fil
 tall column suits the original framing and object-position does the rest. Retune those percentages
 if you replace the photo.
 
-`scripts/make-og.mjs` similarly generates `public/og-default.png`; re-run after changing the
-tagline in `src/consts.ts`.
+`scripts/make-og.mjs` generates `public/og-default.png`; re-run after changing the tagline in
+`src/consts.ts`.
+
+## Research interests — robotics-first, CV-grounded
+
+Sid is applying to **hands-on robotics MS programs** from a pure software-AI background, so the
+research-interests section leads with robotics. Each area pairs a forward-looking `interest` with a
+`fromWork` line that quotes an achievement from the CV, in the CV's own wording (PointNet-EdgeConv,
+RandLA-Net, Point Transformer V3, FPS / Morton code, INSID3 & DINOv3, the DECoN 2025 SoC paper).
+
+The rule: `interest` may be aspirational; `fromWork` may not. Never add experience the CV doesn't
+show — ROS, SLAM, control, embedded deployment, hardware builds. An admissions reader will check
+those claims against the CV and in interview.
 
 ## Design system — readability is the explicit priority
 
@@ -74,8 +84,6 @@ the frosted-glass treatment, so body copy is still dark ink on a light surface.
 Standing rule: **when aesthetics and readability conflict, readability wins.** Concretely:
 
 - Glass goes on cards, nav and section containers — never directly behind long-form text.
-- The blog reading card uses `.glass-strong` (96% opaque, 98% under 640px). Prose caps at 68ch.
-- Code panels are **solid** `#0d1117` with no transparency and no backdrop-blur.
 - Under 640px `.glass` trades blur for opacity and `.glass-strong` drops `backdrop-filter`
   entirely — heavy blur is expensive to composite on mobile.
 
@@ -86,7 +94,12 @@ eyeballing it — translucent panels cannot be checked from CSS alone, because t
 background is a composite. The method that works: screenshot with all glyphs set to
 `color: transparent`, sample the real pixel behind each text run, then compute the ratio.
 
-Last measured: 0 failures across home/blog/projects, minimum **5.6:1**, body prose 16.6:1.
+Last measured (September 2026): 0 failures across home and projects, minimum **5.6:1**; the
+research-interests section alone measures 6.09:1 minimum.
+
+The audit only samples text inside the viewport. Long pages need a tall viewport or an audit
+scoped to one section — the research-interests section sits below the fold and was silently
+skipped by the default 900px audit until it was scoped explicitly.
 
 `--color-ink-faint` (#4d5a70) is the tightest and is for meta text only — don't use it for body
 copy.
@@ -104,9 +117,9 @@ copy.
 ## Outstanding TODOs
 
 Content the resume didn't cover is marked `TODO(sid)` in source and renders as visible amber
-boxes on the site (publication note, Robotics interest, news placeholder, project videos, Google
-Scholar link). Find them with `grep -rn "TODO(sid)" src/`. Don't invent replacements — these
-exist because the information wasn't available.
+boxes on the site (publication note, news placeholder, project videos, Google Scholar link).
+Find them with `grep -rn "TODO(sid)" src/`. Don't invent replacements — these exist because
+the information wasn't available.
 
 ## Deployment
 

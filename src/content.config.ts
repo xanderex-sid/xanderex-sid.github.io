@@ -1,21 +1,7 @@
-import { defineCollection, z } from 'astro:content';
-import { glob, file } from 'astro/loaders';
-
-/** Blog posts: one .mdx file per post in src/content/blog/. */
-const blog = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      date: z.coerce.date(),
-      description: z.string(),
-      tags: z.array(z.string()).default([]),
-      /** Optional card/hero image. Lives in src/content/blog/ next to the post. */
-      cover: image().optional(),
-      coverAlt: z.string().optional(),
-      draft: z.boolean().default(false),
-    }),
-});
+import { defineCollection } from 'astro:content';
+import { file } from 'astro/loaders';
+// Importing `z` from 'astro:content' is deprecated and removed in Astro 8.
+import { z } from 'astro/zod';
 
 /** Dated "recent news" entries, newest first. */
 const news = defineCollection({
@@ -67,4 +53,4 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { blog, news, publications, projects };
+export const collections = { news, publications, projects };

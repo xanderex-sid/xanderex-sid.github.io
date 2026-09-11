@@ -21,18 +21,46 @@ const publications = (await getCollection('publications')).sort(
   (a, b) => b.data.year - a.data.year
 );
 
-const interests = [
-  {
-    title: 'Spatial AI',
-    body: 'Making models reason about 3D structure at infrastructure scale — semantic segmentation of LiDAR and photogrammetry point clouds, optimized voxel sampling (FPS, Morton code), and architectures such as PointNet-EdgeConv, RandLA-Net and Point Transformer V3.',
-    todo: null,
-  },
-  {
-    title: 'Robotics',
-    body: 'Connecting 3D scene understanding to embodied decision-making: perception stacks that turn raw range data into maps and affordances a robot can act on in real time.',
-    todo: "TODO(sid): your resume doesn't mention robotics work, so this description is a placeholder framing of the interest rather than a claim about your experience. Rewrite it in your own words.",
-  },
-];
+/**
+ * Research interests. Robotics is the primary focus. Each area pairs a
+ * forward-looking interest with the concrete work it grows out of. Keep the
+ * `fromWork` lines to things that are actually on the CV, worded as the CV
+ * words them — they are the evidence a reader will check.
+ */
+const research = {
+  lead:
+    "Robotics is where I'm heading next. My work so far has been on the perception side — getting models to understand 3D scenes from LiDAR, photogrammetry and aerial imagery. What I want to learn is the rest of the loop: running that perception on real hardware, inside a robot's compute and latency budget, and using it to drive decisions that move something in the physical world.",
+  areas: [
+    {
+      title: '3D perception for robots',
+      interest:
+        'Scene understanding a robot can act on — segmenting and parsing point clouds from onboard LiDAR and depth sensors as the robot moves, rather than from offline survey scans.',
+      fromWork:
+        'End-to-end LiDAR and photogrammetry semantic segmentation pipelines; a custom PointNet-EdgeConv based model, plus RandLA-Net and Point Transformer V3, reaching up to 89% mIoU on large-scale infrastructure datasets.',
+    },
+    {
+      title: 'Perception on real hardware',
+      interest:
+        'Fitting perception into the latency and compute budget of an onboard computer, where every millisecond of inference competes with control.',
+      fromWork:
+        'Optimized voxel sampling (FPS, Morton code) for large point clouds, and a two-stage YOLOv5 pipeline with multithreaded optimization for production use.',
+    },
+    {
+      title: 'State estimation',
+      interest:
+        'Inferring the hidden state of a physical system from noisy, time-varying sensor signals — the problem underneath localization, sensor fusion, and battery management on mobile robots.',
+      fromWork:
+        'Real-time state-of-charge estimation for EV batteries using driving pattern synchronized neural networks (IEEE DECoN 2025), on top of a B.Tech in Electrical Engineering.',
+    },
+    {
+      title: 'Perception that generalizes',
+      interest:
+        'Recognizing unfamiliar objects from a handful of examples — what a robot needs once it leaves a fixed, pre-labeled environment.',
+      fromWork:
+        'An INSID3 & DINOv3-based few-shot detection system for satellite, orthomosaic, and SAR imagery.',
+    },
+  ],
+};
 ---
 
 <BaseLayout title={SITE.title} description={SITE.description}>
@@ -127,19 +155,26 @@ const interests = [
 
     <!-- ================= RESEARCH INTERESTS ================= -->
     <Panel title="Research interests" id="interests">
-      <div class="grid gap-4 md:grid-cols-2">
+      <p class="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-accent)]">
+        Primary focus · Robotics
+      </p>
+      <p class="mt-2 max-w-3xl text-[0.97rem] leading-relaxed text-[var(--color-ink-soft)]">
+        {research.lead}
+      </p>
+
+      <!-- flex-col + mt-auto pins "From my work" to the bottom so the cards line up. -->
+      <div class="mt-5 grid gap-4 md:grid-cols-2">
         {
-          interests.map((interest) => (
-            <div class="rounded-xl border border-white/70 bg-white/50 p-4 sm:p-5">
-              <h3 class="text-base font-semibold tracking-tight sm:text-lg">{interest.title}</h3>
-              <p class="mt-2 text-[0.93rem] leading-relaxed text-[var(--color-ink-soft)]">
-                {interest.body}
+          research.areas.map((area) => (
+            <div class="flex flex-col rounded-xl border border-white/70 bg-white/50 p-4 sm:p-5">
+              <h3 class="text-base font-semibold tracking-tight sm:text-lg">{area.title}</h3>
+              <p class="mb-4 mt-2 text-[0.93rem] leading-relaxed text-[var(--color-ink-soft)]">
+                {area.interest}
               </p>
-              {interest.todo && (
-                <p class="mt-3 rounded-md border border-dashed border-amber-500/50 bg-amber-50/70 px-3 py-2 text-[0.78rem] leading-relaxed text-amber-900">
-                  {interest.todo}
-                </p>
-              )}
+              <p class="mt-auto border-t border-[rgb(15_23_42/0.08)] pt-3 text-[0.84rem] leading-relaxed text-[var(--color-ink-muted)]">
+                <span class="font-semibold text-[var(--color-ink-soft)]">From my work:</span>{' '}
+                {area.fromWork}
+              </p>
             </div>
           ))
         }
