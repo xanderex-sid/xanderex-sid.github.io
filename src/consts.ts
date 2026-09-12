@@ -2,13 +2,13 @@
 
 export const SITE = {
   title: 'Siddharth Mishra',
-  tagline: 'Data Scientist — Spatial AI, point clouds, and geospatial deep learning.',
+  tagline: 'Data Scientist — Spatial AI and point clouds, moving toward robotics.',
   description:
-    'Siddharth Mishra — Data Scientist at Deepmatrix working on LiDAR and photogrammetry point-cloud segmentation, geospatial object detection, and Spatial AI.',
+    'Siddharth Mishra — Data Scientist at Deepmatrix working on LiDAR point-cloud segmentation and geospatial object detection, now moving toward robotics.',
   url: 'https://xanderex-sid.github.io',
   author: 'Siddharth Mishra',
   locale: 'en',
-  /** Used for og:image; generated at public/og-default.svg. */
+  /** Used for og:image; generated at public/og-default.png by scripts/make-og.mjs. */
   ogImage: '/og-default.png',
 } as const;
 

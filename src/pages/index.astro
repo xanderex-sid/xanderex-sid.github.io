@@ -105,7 +105,7 @@ const research = {
             <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">Siddharth Mishra</h1>
             <p class="mt-1.5 max-w-2xl text-[0.98rem] leading-relaxed text-[var(--color-ink-soft)]">
               Data Scientist at Deepmatrix, working on Spatial AI — LiDAR and photogrammetry
-              point-cloud segmentation, and geospatial object detection.
+              point-cloud segmentation, and geospatial object detection. Moving toward robotics.
             </p>
 
             <div class="mt-5 flex flex-wrap items-center gap-3">
@@ -122,6 +122,34 @@ const research = {
         </div>
       </div>
     </section>
+
+    <!-- ================= RESEARCH INTERESTS ================= -->
+    <Panel title="Research interests" id="interests">
+      <p class="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-accent)]">
+        Primary focus · Robotics
+      </p>
+      <p class="mt-2 max-w-3xl text-[0.97rem] leading-relaxed text-[var(--color-ink-soft)]">
+        {research.lead}
+      </p>
+
+      <!-- flex-col + mt-auto pins "From my work" to the bottom so the cards line up. -->
+      <div class="mt-5 grid gap-4 md:grid-cols-2">
+        {
+          research.areas.map((area) => (
+            <div class="flex flex-col rounded-xl border border-white/70 bg-white/50 p-4 sm:p-5">
+              <h3 class="text-base font-semibold tracking-tight sm:text-lg">{area.title}</h3>
+              <p class="mb-4 mt-2 text-[0.93rem] leading-relaxed text-[var(--color-ink-soft)]">
+                {area.interest}
+              </p>
+              <p class="mt-auto border-t border-[rgb(15_23_42/0.08)] pt-3 text-[0.84rem] leading-relaxed text-[var(--color-ink-muted)]">
+                <span class="font-semibold text-[var(--color-ink-soft)]">From my work:</span>{' '}
+                {area.fromWork}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </Panel>
 
     <!-- ================= RECENT NEWS ================= -->
     <Panel title="Recent news" id="news">
@@ -150,34 +178,6 @@ const research = {
           decoder-only transformer from scratch, mostly to understand what the abstractions are
           hiding.
         </p>
-      </div>
-    </Panel>
-
-    <!-- ================= RESEARCH INTERESTS ================= -->
-    <Panel title="Research interests" id="interests">
-      <p class="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-accent)]">
-        Primary focus · Robotics
-      </p>
-      <p class="mt-2 max-w-3xl text-[0.97rem] leading-relaxed text-[var(--color-ink-soft)]">
-        {research.lead}
-      </p>
-
-      <!-- flex-col + mt-auto pins "From my work" to the bottom so the cards line up. -->
-      <div class="mt-5 grid gap-4 md:grid-cols-2">
-        {
-          research.areas.map((area) => (
-            <div class="flex flex-col rounded-xl border border-white/70 bg-white/50 p-4 sm:p-5">
-              <h3 class="text-base font-semibold tracking-tight sm:text-lg">{area.title}</h3>
-              <p class="mb-4 mt-2 text-[0.93rem] leading-relaxed text-[var(--color-ink-soft)]">
-                {area.interest}
-              </p>
-              <p class="mt-auto border-t border-[rgb(15_23_42/0.08)] pt-3 text-[0.84rem] leading-relaxed text-[var(--color-ink-muted)]">
-                <span class="font-semibold text-[var(--color-ink-soft)]">From my work:</span>{' '}
-                {area.fromWork}
-              </p>
-            </div>
-          ))
-        }
       </div>
     </Panel>
 
