@@ -1,0 +1,35 @@
+---
+import { SOCIALS } from '../consts';
+import Icon from './Icon.astro';
+
+interface Props {
+  size?: number;
+  class?: string;
+}
+const { size = 20, class: className = '' } = Astro.props;
+---
+
+<ul class:list={['flex flex-wrap items-center gap-2', className]}>
+  {
+    SOCIALS.map((s) => {
+      const isTodo = 'todo' in s && s.todo;
+      return (
+        <li>
+          <a
+            href={s.href}
+            target={s.href.startsWith('http') ? '_blank' : undefined}
+            rel={s.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            title={isTodo ? `${s.label} — TODO: add your profile URL` : s.label}
+            aria-label={s.label}
+            class:list={[
+              'inline-flex items-center justify-center rounded-lg border border-white/70 bg-white/55 p-2 text-[var(--color-ink-soft)] no-underline transition-colors hover:bg-white hover:text-[var(--color-accent-strong)]',
+              isTodo && 'border-dashed opacity-70',
+            ]}
+          >
+            <Icon name={s.icon as any} size={size} />
+          </a>
+        </li>
+      );
+    })
+  }
+</ul>

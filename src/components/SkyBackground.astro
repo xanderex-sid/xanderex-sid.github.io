@@ -1,0 +1,13 @@
+---
+/**
+ * Fixed, layered sky gradient with slow-drifting haze blobs.
+ * Sits at z-index -10 behind all content and is pointer-inert.
+ * The drift animation is disabled by prefers-reduced-motion (see global.css).
+ */
+---
+
+<div class="sky-root" aria-hidden="true">
+  <div class="haze haze-a"></div>
+  <div class="haze haze-b"></div>
+  <div class="haze haze-c"></div>
+</div>

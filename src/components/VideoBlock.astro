@@ -1,0 +1,105 @@
+---
+import Icon from './Icon.astro';
+
+/**
+ * Muted, looping, hover-to-play video with a required poster fallback.
+ *
+ * - No video yet  → the poster renders as a plain <img> with a badge.
+ * - Video present → <video preload="none"> whose source is only attached once
+ *   the block scrolls near the viewport (see the IntersectionObserver below).
+ * - prefers-reduced-motion → autoplay-on-hover is suppressed entirely and
+ *   native controls are exposed so the user can start it deliberately.
+ */
+interface Props {
+  videoSrc?: string;
+  posterSrc: string;
+  posterAlt: string;
+  comingSoon?: boolean;
+}
+const { videoSrc, posterSrc, posterAlt, comingSoon = false } = Astro.props;
+
+// projects.json uses the literal string "TODO" as a visible placeholder.
+const hasVideo = Boolean(videoSrc && !videoSrc.startsWith('TODO'));
+const badge = comingSoon ? 'Coming soon' : 'Video coming soon';
+---
+
+<div
+  class="video-block relative aspect-video w-full overflow-hidden rounded-xl border border-white/60 bg-[#dbeae6]"
+>
+  {
+    hasVideo ? (
+      <video
+        class="h-full w-full object-cover"
+        data-src={videoSrc}
+        poster={posterSrc}
+        muted
+        loop
+        playsinline
+        preload="none"
+        aria-label={posterAlt}
+      />
+    ) : (
+      <>
+        <img
+          src={posterSrc}
+          alt={posterAlt}
+          loading="lazy"
+          decoding="async"
+          class="h-full w-full object-cover"
+        />
+        <span class="absolute bottom-2.5 left-2.5 inline-flex items-center gap-1.5 rounded-full bg-white/85 px-2.5 py-1 text-[0.7rem] font-semibold text-[var(--color-ink-muted)] backdrop-blur-sm">
+          <Icon name="play" size={11} />
+          {badge}
+        </span>
+      </>
+    )
+  }
+</div>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  document.querySelectorAll<HTMLElement>('.video-block').forEach((block) => {
+    const video = block.querySelector<HTMLVideoElement>('video[data-src]');
+    if (!video) return;
+
+    // Attach the real source only when the block nears the viewport.
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          if (!video.src && video.dataset.src) {
+            video.src = video.dataset.src;
+          }
+          io.disconnect();
+        }
+      },
+      { rootMargin: '300px' }
+    );
+    io.observe(block);
+
+    if (reduceMotion.matches) {
+      // Give the user manual control instead of motion they did not ask for.
+      video.controls = true;
+      return;
+    }
+
+    const play = () => {
+      if (reduceMotion.matches) return;
+      if (!video.src && video.dataset.src) video.src = video.dataset.src;
+      video.play().catch(() => {
+        /* autoplay can still be refused; the poster stays visible */
+      });
+    };
+    const pause = () => {
+      video.pause();
+      video.currentTime = 0;
+    };
+
+    block.addEventListener('mouseenter', play);
+    block.addEventListener('mouseleave', pause);
+    // Keyboard users get the same affordance via the wrapping link's focus.
+    block.closest('a')?.addEventListener('focus', play);
+    block.closest('a')?.addEventListener('blur', pause);
+  });
+</script>

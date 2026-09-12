@@ -1,0 +1,243 @@
+@import 'tailwindcss';
+
+/* Variable fonts, self-hosted — no render-blocking request to Google Fonts. */
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+
+/* ---------------------------------------------------------------------------
+   Design tokens — "navy green seen through frosted glass".
+   The backdrop is a single uniform navy green (no light-to-dark gradient).
+   The glass panels stay light and frosted, so body copy remains dark ink on a
+   light surface. Because the backdrop is dark, glass opacity is higher than it
+   would be over a light sky — otherwise the composite drops muted text below
+   AA. Every ratio in the comments was measured against the real composited
+   pixel, not guessed. Re-audit if you touch these.
+   --------------------------------------------------------------------------- */
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Backdrop — one flat navy green everywhere. */
+  --color-navy: #0e3b38;
+  --color-navy-haze: #17544e; /* drifting blobs only */
+
+  /* Ink — always on a frosted panel, never on the raw backdrop. */
+  --color-ink: #0f172a; /* ~13:1 on glass */
+  --color-ink-soft: #2c3e4c; /*  ~8:1 */
+  --color-ink-muted: #3d5160; /*  ~6:1 */
+  --color-ink-faint: #4d5a70; /*  ~5:1 — meta text only */
+
+  /* Accent — deep teal-green, harmonises with the backdrop. */
+  --color-accent: #115e59; /* ~5.8:1 on glass; white text on it is 7.3:1 */
+  --color-accent-strong: #0b453f;
+  --color-accent-soft: #d9efea;
+
+  /* Glass — same frosted treatment, tuned for a dark backdrop. */
+  --glass-bg: rgb(255 255 255 / 0.88);
+  --glass-bg-strong: rgb(255 255 255 / 0.96);
+  --glass-border: rgb(255 255 255 / 0.55);
+  --glass-shadow: 0 10px 34px -12px rgb(0 0 0 / 0.45), 0 2px 8px -4px rgb(0 0 0 / 0.3);
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background-color: var(--color-navy);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    color: var(--color-ink);
+    font-weight: 650;
+    letter-spacing: -0.018em;
+    text-wrap: balance;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-underline-offset: 3px;
+  }
+  a:hover {
+    color: var(--color-accent-strong);
+  }
+
+  /* Visible keyboard focus everywhere. :focus-visible keeps it off mouse clicks. */
+  :focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: #a7d9d0;
+    color: var(--color-ink);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Backdrop — fixed, behind everything, pointer-inert.
+   Flat navy green: deliberately no light-to-dark gradient. The only tonal
+   variation comes from the slow-drifting haze blobs.
+   --------------------------------------------------------------------------- */
+.sky-root {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+  /* Clips the haze blobs at the viewport edge so the compositor doesn't paint
+     large blurred areas that are never visible. Cheap win on mobile. */
+  overflow: hidden;
+  background: var(--color-navy);
+}
+
+.haze {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  will-change: transform;
+}
+
+.haze-a {
+  top: -6%;
+  left: -8%;
+  width: 46rem;
+  height: 26rem;
+  background: radial-gradient(circle, rgb(23 84 78 / 0.85), transparent 68%);
+  animation: drift-a 44s ease-in-out infinite alternate;
+}
+.haze-b {
+  top: 34%;
+  right: -12%;
+  width: 40rem;
+  height: 24rem;
+  background: radial-gradient(circle, rgb(18 96 86 / 0.7), transparent 70%);
+  animation: drift-b 56s ease-in-out infinite alternate;
+}
+.haze-c {
+  bottom: -10%;
+  left: 18%;
+  width: 52rem;
+  height: 28rem;
+  background: radial-gradient(circle, rgb(12 60 58 / 0.9), transparent 72%);
+  animation: drift-c 68s ease-in-out infinite alternate;
+}
+
+@keyframes drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(5rem, 2.5rem, 0) scale(1.12); }
+}
+@keyframes drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1.05); }
+  to   { transform: translate3d(-6rem, -3rem, 0) scale(1); }
+}
+@keyframes drift-c {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(3rem, -2rem, 0) scale(1.1); }
+}
+
+/* ---------------------------------------------------------------------------
+   Glass panels
+   --------------------------------------------------------------------------- */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Reading surfaces: near-solid so long-form text never fights the sky. */
+.glass-strong {
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.glass-hover:hover {
+  transform: translateY(-3px);
+  background: rgb(255 255 255 / 0.96);
+  box-shadow: 0 16px 40px -14px rgb(15 23 42 / 0.3), 0 4px 12px -6px rgb(15 23 42 / 0.14);
+}
+
+/* Mobile: heavy blur is expensive to composite. Trade it for more opacity. */
+@media (max-width: 640px) {
+  .glass {
+    backdrop-filter: blur(8px) saturate(130%);
+    -webkit-backdrop-filter: blur(8px) saturate(130%);
+    background: rgb(255 255 255 / 0.93);
+  }
+  .glass-strong {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgb(255 255 255 / 0.98);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Utilities
+   --------------------------------------------------------------------------- */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  padding: 0.6rem 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: var(--glass-shadow);
+}
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 550;
+  line-height: 1;
+  padding: 0.32rem 0.6rem;
+  border-radius: 9999px;
+  color: #0f4c47;
+  background: var(--color-accent-soft);
+  border: 1px solid rgb(17 94 89 / 0.22);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------------
+   Reduced motion — kills drift, smooth scroll, and hover-video autoplay.
+   VideoBlock.astro also reads this media query in JS before calling play().
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .haze-a, .haze-b, .haze-c {
+    animation: none !important;
+  }
+
+  .glass-hover:hover { transform: none; }
+
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

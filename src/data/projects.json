@@ -1,0 +1,34 @@
+[
+  {
+    "id": "yolo11-from-scratch",
+    "title": "YOLOv11 from scratch",
+    "description": "Build YOLOv11 model from scratch. Swapping models inside Ultralytics was confusing and error prone, so this is a clean-room implementation that stays easy to customise.",
+    "posterSrc": "/posters/yolo11.svg",
+    "posterAlt": "Placeholder poster for the YOLOv11 from scratch project",
+    "repoUrl": "https://github.com/xanderex-sid/yolo11_from_scratch",
+    "tags": ["Python", "PyTorch", "Object Detection"],
+    "order": 1,
+    "videoSrc": "TODO"
+  },
+  {
+    "id": "minigpt",
+    "title": "miniGPT",
+    "description": "Implemented decoder part of transformer from Attention All You Need, 2017 paper (text generation) in a compact notebook, using the original decoder-only ideas to train and sample text.",
+    "posterSrc": "/posters/minigpt.svg",
+    "posterAlt": "Placeholder poster for the miniGPT project",
+    "repoUrl": "https://github.com/xanderex-sid/Transformer-Models/blob/main/miniGPT.ipynb",
+    "tags": ["Python", "PyTorch", "Transformers"],
+    "order": 2,
+    "videoSrc": "TODO"
+  },
+  {
+    "id": "coming-soon",
+    "title": "Coming soon",
+    "description": "TODO(sid): a new project is in the works. Replace this block with the real title, description, tags and repo URL when it is ready — or delete the entry entirely.",
+    "posterSrc": "/posters/coming-soon.svg",
+    "posterAlt": "Placeholder poster for an upcoming project",
+    "tags": [],
+    "comingSoon": true,
+    "order": 3
+  }
+]

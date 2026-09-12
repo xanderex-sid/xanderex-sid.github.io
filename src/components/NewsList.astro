@@ -1,0 +1,44 @@
+---
+import FormattedDate from './FormattedDate.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  items: CollectionEntry<'news'>[];
+}
+const { items } = Astro.props;
+---
+
+<ul class="flex flex-col">
+  {
+    items.map((item, i) => (
+      <li
+        class:list={[
+          'grid gap-x-4 gap-y-1 py-3 sm:grid-cols-[7.5rem_minmax(0,1fr)]',
+          i > 0 && 'border-t border-[rgb(15_23_42/0.08)]',
+        ]}
+      >
+        <FormattedDate
+          date={item.data.date}
+          format="short"
+          class="text-sm font-semibold tabular-nums text-[var(--color-ink-faint)]"
+        />
+        <p class="text-[0.95rem] leading-relaxed text-[var(--color-ink-soft)]">
+          {item.data.text}
+          {item.data.href && (
+            <>
+              {' '}
+              <a
+                href={item.data.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-medium underline underline-offset-2"
+              >
+                {item.data.linkText ?? 'Link'}
+              </a>
+            </>
+          )}
+        </p>
+      </li>
+    ))
+  }
+</ul>

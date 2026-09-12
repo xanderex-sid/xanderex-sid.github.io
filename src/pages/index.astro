@@ -1,0 +1,189 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Panel from '../components/Panel.astro';
+import NewsList from '../components/NewsList.astro';
+import PublicationList from '../components/PublicationList.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import Icon from '../components/Icon.astro';
+import { SITE, RESUME_URL } from '../consts';
+import banner from '../assets/banner.jpg';
+// Full portrait, not the old square crop: the hero photo column is tall, so the
+// original framing suits it and object-position does the rest.
+import profile from '../assets/profile.jpg';
+
+const news = (await getCollection('news')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const publications = (await getCollection('publications')).sort(
+  (a, b) => b.data.year - a.data.year
+);
+
+/**
+ * Research interests. Robotics is the primary focus. Each area pairs a
+ * forward-looking interest with the concrete work it grows out of. Keep the
+ * `fromWork` lines to things that are actually on the CV, worded as the CV
+ * words them — they are the evidence a reader will check.
+ */
+const research = {
+  lead:
+    "Robotics is where I'm heading next. My work so far has been on the perception side — getting models to understand 3D scenes from LiDAR, photogrammetry and aerial imagery. What I want to learn is the rest of the loop: running that perception on real hardware, inside a robot's compute and latency budget, and using it to drive decisions that move something in the physical world.",
+  areas: [
+    {
+      title: '3D perception for robots',
+      interest:
+        'Scene understanding a robot can act on — segmenting and parsing point clouds from onboard LiDAR and depth sensors as the robot moves, rather than from offline survey scans.',
+      fromWork:
+        'End-to-end LiDAR and photogrammetry semantic segmentation pipelines; a custom PointNet-EdgeConv based model, plus RandLA-Net and Point Transformer V3, reaching up to 89% mIoU on large-scale infrastructure datasets.',
+    },
+    {
+      title: 'Perception on real hardware',
+      interest:
+        'Fitting perception into the latency and compute budget of an onboard computer, where every millisecond of inference competes with control.',
+      fromWork:
+        'Optimized voxel sampling (FPS, Morton code) for large point clouds, and a two-stage YOLOv5 pipeline with multithreaded optimization for production use.',
+    },
+    {
+      title: 'State estimation',
+      interest:
+        'Inferring the hidden state of a physical system from noisy, time-varying sensor signals — the problem underneath localization, sensor fusion, and battery management on mobile robots.',
+      fromWork:
+        'Real-time state-of-charge estimation for EV batteries using driving pattern synchronized neural networks (IEEE DECoN 2025), on top of a B.Tech in Electrical Engineering.',
+    },
+    {
+      title: 'Perception that generalizes',
+      interest:
+        'Recognizing unfamiliar objects from a handful of examples — what a robot needs once it leaves a fixed, pre-labeled environment.',
+      fromWork:
+        'An INSID3 & DINOv3-based few-shot detection system for satellite, orthomosaic, and SAR imagery.',
+    },
+  ],
+};
+---
+
+<BaseLayout title={SITE.title} description={SITE.description}>
+  <div class="mx-auto flex max-w-5xl flex-col gap-5 pt-5 sm:gap-6">
+    <!-- ================= HERO ================= -->
+    <section class="glass overflow-hidden rounded-2xl">
+      <!--
+        Two columns on sm+: photo fills the full height of the block on the
+        left, everything else sits on the right. The grid's default
+        `align-items: stretch` is what makes the photo column match the height
+        of the taller text column — don't add `items-start` here.
+        Below sm it collapses to a single column: photo, banner, then text.
+      -->
+      <div class="grid sm:grid-cols-[minmax(0,15rem)_minmax(0,1fr)]">
+        <!-- Photo column -->
+        <div class="relative h-64 sm:h-auto">
+          <Image
+            src={profile}
+            alt="Siddharth Mishra"
+            widths={[320, 640]}
+            sizes="(min-width: 640px) 240px, 100vw"
+            loading="eager"
+            fetchpriority="high"
+            class="absolute inset-0 h-full w-full object-cover object-[57%_22%]"
+          />
+        </div>
+
+        <!-- Text column, with the banner as a strip above it -->
+        <div class="flex flex-col">
+          <div class="h-20 w-full shrink-0 sm:h-24">
+            <Image
+              src={banner}
+              alt=""
+              widths={[600, 1100]}
+              sizes="(min-width: 640px) 780px, 100vw"
+              loading="eager"
+              class="h-full w-full object-cover"
+            />
+          </div>
+
+          <div class="flex-1 px-5 py-6 sm:px-7 sm:py-7">
+            <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">Siddharth Mishra</h1>
+            <p class="mt-1.5 max-w-2xl text-[0.98rem] leading-relaxed text-[var(--color-ink-soft)]">
+              Data Scientist at Deepmatrix, working on Spatial AI — LiDAR and photogrammetry
+              point-cloud segmentation, and geospatial object detection. Moving toward robotics.
+            </p>
+
+            <div class="mt-5 flex flex-wrap items-center gap-3">
+              <a
+                href={RESUME_URL}
+                class="inline-flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white no-underline shadow-sm transition-colors hover:bg-[var(--color-accent-strong)] hover:text-white"
+              >
+                <Icon name="download" size={16} />
+                Download CV
+              </a>
+              <SocialLinks />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= RESEARCH INTERESTS ================= -->
+    <Panel title="Research interests" id="interests">
+      <p class="text-xs font-semibold uppercase tracking-[0.08em] text-[var(--color-accent)]">
+        Primary focus · Robotics
+      </p>
+      <p class="mt-2 max-w-3xl text-[0.97rem] leading-relaxed text-[var(--color-ink-soft)]">
+        {research.lead}
+      </p>
+
+      <!-- flex-col + mt-auto pins "From my work" to the bottom so the cards line up. -->
+      <div class="mt-5 grid gap-4 md:grid-cols-2">
+        {
+          research.areas.map((area) => (
+            <div class="flex flex-col rounded-xl border border-white/70 bg-white/50 p-4 sm:p-5">
+              <h3 class="text-base font-semibold tracking-tight sm:text-lg">{area.title}</h3>
+              <p class="mb-4 mt-2 text-[0.93rem] leading-relaxed text-[var(--color-ink-soft)]">
+                {area.interest}
+              </p>
+              <p class="mt-auto border-t border-[rgb(15_23_42/0.08)] pt-3 text-[0.84rem] leading-relaxed text-[var(--color-ink-muted)]">
+                <span class="font-semibold text-[var(--color-ink-soft)]">From my work:</span>{' '}
+                {area.fromWork}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </Panel>
+
+    <!-- ================= RECENT NEWS ================= -->
+    <Panel title="Recent news" id="news">
+      <NewsList items={news} />
+    </Panel>
+
+    <!-- ================= ABOUT ================= -->
+    <Panel title="About" id="about">
+      <div class="flex max-w-3xl flex-col gap-3.5 text-[0.97rem] leading-relaxed text-[var(--color-ink-soft)]">
+        <p>
+          I'm a Data Scientist at <strong class="font-semibold text-[var(--color-ink)]"
+            >Deepmatrix Private Limited</strong
+          >, where I build geospatial computer vision systems. Day to day that means end-to-end
+          semantic segmentation pipelines for LiDAR and photogrammetry point clouds, oriented
+          bounding-box detection for power-line and cell-tower defects, and few-shot detection
+          across satellite, orthomosaic and SAR imagery.
+        </p>
+        <p>
+          I graduated from the <strong class="font-semibold text-[var(--color-ink)]"
+            >Indian Institute of Technology (Indian School of Mines) Dhanbad</strong
+          > in May 2025 with a B.Tech in Electrical Engineering (CGPA 8.68). Before that I was an
+          AI/ML intern at Deepmatrix, working on orthomosaic segmentation and GIS automation.
+        </p>
+        <p>
+          I also like building things from first principles — reimplementing YOLOv11 and a
+          decoder-only transformer from scratch, mostly to understand what the abstractions are
+          hiding.
+        </p>
+      </div>
+    </Panel>
+
+    <!-- ================= PUBLICATIONS ================= -->
+    <Panel title="Publications" id="publications">
+      <PublicationList items={publications} />
+    </Panel>
+  </div>
+</BaseLayout>

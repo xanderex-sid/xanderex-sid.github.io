@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+---
+
+<BaseLayout
+  title="Projects"
+  description="Personal projects by Siddharth Mishra — YOLOv11 from scratch, miniGPT, and more."
+>
+  <div class="mx-auto max-w-5xl pt-5">
+    <header class="glass rounded-2xl px-5 py-6 sm:px-7 sm:py-7">
+      <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">Projects</h1>
+      <p class="mt-2 max-w-2xl text-[0.97rem] leading-relaxed text-[var(--color-ink-soft)]">
+        Things I've built to understand how they work. Hover a clip to play it; click a block to
+        open the repository on GitHub.
+      </p>
+    </header>
+
+    <div class="mt-5 flex flex-col gap-5">
+      {projects.map((project) => <ProjectCard project={project.data} />)}
+    </div>
+  </div>
+</BaseLayout>
