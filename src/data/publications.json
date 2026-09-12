@@ -2,18 +2,23 @@
   {
     "id": "decon-2025-soc",
     "title": "Real-Time State-Of-Charge Estimation for Electric Vehicle Batteries Using Driving Pattern Synchronized Neural Networks",
-    "authors": ["Gunjan Haldar", "Siddhartha Mishra"],
-    "highlightAuthor": "Siddhartha Mishra",
+    "authors": [
+      "Gunjan Haldar",
+      "Siddharth Mishra"
+    ],
+    "highlightAuthor": "Siddharth Mishra",
     "venue": "2025 International Conference on Data, Energy and Communication Networks (DECoN)",
     "year": 2025,
     "doi": "10.1109/DECoN67170.2025.11447768",
     "links": [
-      { "label": "DOI", "href": "https://doi.org/10.1109/DECoN67170.2025.11447768" },
+      {
+        "label": "DOI",
+        "href": "https://doi.org/10.1109/DECoN67170.2025.11447768"
+      },
       {
         "label": "Semantic Scholar",
         "href": "https://www.semanticscholar.org/paper/c509c7ba2d161735eb387f9b17823c1809bc4958"
       }
-    ],
-    "note": "TODO(sid): the indexed record spells the second author 'Siddhartha Mishra' — verify against the official IEEE Xplore record and correct the spelling here if it should read 'Siddharth Mishra'. Also add a direct IEEE Xplore link and a code link if you have one."
+    ]
   }
 ]

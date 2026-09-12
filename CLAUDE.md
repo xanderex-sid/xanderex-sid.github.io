@@ -117,7 +117,7 @@ copy.
 ## Outstanding TODOs
 
 Content the resume didn't cover is marked `TODO(sid)` in source and renders as visible amber
-boxes on the site (publication note, news placeholder, project videos, Google Scholar link).
+boxes on the site (news placeholder, project videos, Google Scholar link).
 Find them with `grep -rn "TODO(sid)" src/`. Don't invent replacements — these exist because
 the information wasn't available.
 
